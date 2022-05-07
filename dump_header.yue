@@ -106,9 +106,35 @@ parse_h = (h) ->
 
   types
 
+-- manual handling for now of multiline nodes
+manual_overrides =
+  SimpleValue:
+    attr:
+      * { required: true, name: "value", type: "sel<true, If, Switch, With, ClassDecl, ForEach, For, While, Do, Try, unary_value, TblComprehension, TableLit, Comprehension, FunLit, Num>" }
+  TableLit:
+    attr:
+      * { type: "Seperator", required: true, name: "sep" }
+      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, SpreadExp, Exp, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>" }
+  TableBlockIndent:
+    attr:
+      * { type: "Seperator", required: true, name: "sep" }
+      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>" }
+  TableBlock:
+    attr:
+      * { type: "Seperator", required: true, name: "sep" }
+      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, Exp, TableBlock, SpreadExp, default_pair>" }
+  Statement:
+    attr:
+      * { required: true, name: "content", type: "sel<true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>" }
+      * { type: "statement_appendix", required: false, name: "appendix" }
+      * { type: "statement_sep", required: false, name: "needSep" }
+
 types = parse_h get!
 print "types ="
 for v in *types
+  if manual_overrides[v.decl_name]
+    v.attr = manual_overrides[v.decl_name].attr
+
   attr = {}
   for a in *v.attr
     --as_lua = inspect a, { newline: "", indent: "" }

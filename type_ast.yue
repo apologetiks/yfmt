@@ -562,7 +562,8 @@ types =
     type: "node"
     decl_name: "SimpleValue"
     pretty_name: "simple_value"
-    attr: nil
+    attr:
+      * { type: "sel<true, If, Switch, With, ClassDecl, ForEach, For, While, Do, Try, unary_value, TblComprehension, TableLit, Comprehension, FunLit, Num>", required: true, name: "value" }
   }
   * {
     type: "leaf"
@@ -730,6 +731,7 @@ types =
     pretty_name: "table_lit"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
+      * { type: "sel_list<false, variable_pair, normal_pair, SpreadExp, Exp, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>", required: false, name: "values" }
   }
   * {
     type: "node"
@@ -737,6 +739,7 @@ types =
     pretty_name: "table_block_indent"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
+      * { type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>", required: false, name: "values" }
   }
   * {
     type: "node"
@@ -744,6 +747,7 @@ types =
     pretty_name: "table_block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
+      * { type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, Exp, TableBlock, SpreadExp, default_pair>", required: false, name: "values" }
   }
   * {
     type: "node"
@@ -978,6 +982,7 @@ types =
     decl_name: "Statement"
     pretty_name: "statement"
     attr:
+      * { type: "sel<true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>", required: true, name: "content" }
       * { type: "statement_appendix", required: false, name: "appendix" }
       * { type: "statement_sep", required: false, name: "needSep" }
   }
