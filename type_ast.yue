@@ -2,98 +2,98 @@ types =
   * {
     type: "leaf"
     decl_name: "Num"
-    pretty_name: "num"
+    internal_name: "num"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "Name"
-    pretty_name: "name"
+    internal_name: "name"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Variable"
-    pretty_name: "variable"
+    internal_name: "variable"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "LabelName"
-    pretty_name: "label_name"
+    internal_name: "label_name"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "LuaKeyword"
-    pretty_name: "lua_keyword"
+    internal_name: "lua_keyword"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "leaf"
     decl_name: "self"
-    pretty_name: "self"
+    internal_name: "self"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "self_name"
-    pretty_name: "self_name"
+    internal_name: "self_name"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "leaf"
     decl_name: "self_class"
-    pretty_name: "self_name"
+    internal_name: "self_name"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "self_class_name"
-    pretty_name: "self_class_name"
+    internal_name: "self_class_name"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "SelfName"
-    pretty_name: "self_item"
+    internal_name: "self_item"
     attr:
       * { special: true, type: "sel", required: true, name: "name", any: { "self_class_name", "self_class", "self_name", "self" } }
   }
   * {
     type: "node"
     decl_name: "KeyName"
-    pretty_name: "key_name"
+    internal_name: "key_name"
     attr:
       * { special: true, type: "sel", required: true, name: "name", any: { "SelfName", "Name" } }
   }
   * {
     type: "leaf"
     decl_name: "VarArg"
-    pretty_name: "var_arg"
+    internal_name: "var_arg"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "local_flag"
-    pretty_name: "local_flag"
+    internal_name: "local_flag"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "Seperator"
-    pretty_name: "seperator"
+    internal_name: "seperator"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "NameList"
-    pretty_name: "name_list"
+    internal_name: "name_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "names", any: { "Variable" } }
@@ -101,7 +101,7 @@ types =
   * {
     type: "node"
     decl_name: "local_values"
-    pretty_name: "local_values"
+    internal_name: "local_values"
     attr:
       * { type: "NameList", required: true, name: "nameList" }
       * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
@@ -109,20 +109,20 @@ types =
   * {
     type: "node"
     decl_name: "Local"
-    pretty_name: "local"
+    internal_name: "local"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "local_flag", "local_values" } }
   }
   * {
     type: "leaf"
     decl_name: "Attrib"
-    pretty_name: "attrib"
+    internal_name: "attrib"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "LocalAttrib"
-    pretty_name: "local_attrib"
+    internal_name: "local_attrib"
     attr:
       * { type: "Attrib", required: true, name: "attrib" }
       * { type: "NameList", required: true, name: "nameList" }
@@ -131,20 +131,20 @@ types =
   * {
     type: "node"
     decl_name: "colon_import_name"
-    pretty_name: "colon_import_name"
+    internal_name: "colon_import_name"
     attr:
       * { type: "Variable", required: true, name: "name" }
   }
   * {
     type: "leaf"
     decl_name: "import_literal_inner"
-    pretty_name: "import_literal_inner"
+    internal_name: "import_literal_inner"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "ImportLiteral"
-    pretty_name: "import_literal"
+    internal_name: "import_literal"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "inners", any: { "import_literal_inner" } }
@@ -152,7 +152,7 @@ types =
   * {
     type: "node"
     decl_name: "ImportFrom"
-    pretty_name: "import_from"
+    internal_name: "import_from"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "names", any: { "colon_import_name", "Variable" } }
@@ -161,7 +161,7 @@ types =
   * {
     type: "node"
     decl_name: "macro_name_pair"
-    pretty_name: "macro_name_pair"
+    internal_name: "macro_name_pair"
     attr:
       * { type: "MacroName", required: true, name: "key" }
       * { type: "MacroName", required: true, name: "value" }
@@ -169,13 +169,13 @@ types =
   * {
     type: "leaf"
     decl_name: "import_all_macro"
-    pretty_name: "import_all_macro"
+    internal_name: "import_all_macro"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "ImportTabLit"
-    pretty_name: "import_tab_lit"
+    internal_name: "import_tab_lit"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: false, name: "items", any: { "variable_pair", "normal_pair", "MacroName", "macro_name_pair", "import_all_macro", "Exp", "meta_variable_pair", "meta_normal_pair" } }
@@ -183,7 +183,7 @@ types =
   * {
     type: "node"
     decl_name: "ImportAs"
-    pretty_name: "import_as"
+    internal_name: "import_as"
     attr:
       * { type: "ImportLiteral", required: true, name: "literal" }
       * { special: true, type: "sel", required: false, name: "target", any: { "Variable", "ImportTabLit", "import_all_macro" } }
@@ -191,34 +191,34 @@ types =
   * {
     type: "node"
     decl_name: "Import"
-    pretty_name: "import"
+    internal_name: "import"
     attr:
       * { special: true, type: "sel", required: true, name: "content", any: { "ImportAs", "ImportFrom" } }
   }
   * {
     type: "node"
     decl_name: "Label"
-    pretty_name: "label"
+    internal_name: "label"
     attr:
       * { type: "LabelName", required: true, name: "label" }
   }
   * {
     type: "node"
     decl_name: "Goto"
-    pretty_name: "goto"
+    internal_name: "goto"
     attr:
       * { type: "LabelName", required: true, name: "label" }
   }
   * {
     type: "leaf"
     decl_name: "fn_arrow_back"
-    pretty_name: "fn_arrow_back"
+    internal_name: "fn_arrow_back"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Backcall"
-    pretty_name: "backcall"
+    internal_name: "backcall"
     attr:
       * { type: "FnArgsDef", required: false, name: "argsDef" }
       * { type: "fn_arrow_back", required: true, name: "arrow" }
@@ -227,7 +227,7 @@ types =
   * {
     type: "node"
     decl_name: "ExpListLow"
-    pretty_name: "exp_list_low"
+    internal_name: "exp_list_low"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "exprs", any: { "Exp" } }
@@ -235,7 +235,7 @@ types =
   * {
     type: "node"
     decl_name: "ExpList"
-    pretty_name: "exp_list"
+    internal_name: "exp_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "exprs", any: { "Exp" } }
@@ -243,14 +243,14 @@ types =
   * {
     type: "node"
     decl_name: "Return"
-    pretty_name: "return"
+    internal_name: "return"
     attr:
       * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
   }
   * {
     type: "node"
     decl_name: "With"
-    pretty_name: "with"
+    internal_name: "with"
     attr:
       * { type: "existential_op", required: false, name: "eop" }
       * { type: "ExpList", required: true, name: "valueList" }
@@ -260,7 +260,7 @@ types =
   * {
     type: "node"
     decl_name: "SwitchCase"
-    pretty_name: "switch_case"
+    internal_name: "switch_case"
     attr:
       * { type: "ExpList", required: true, name: "valueList" }
       * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
@@ -268,7 +268,7 @@ types =
   * {
     type: "node"
     decl_name: "Switch"
-    pretty_name: "switch"
+    internal_name: "switch"
     attr:
       * { type: "Exp", required: true, name: "target" }
       * { type: "Seperator", required: true, name: "sep" }
@@ -278,7 +278,7 @@ types =
   * {
     type: "node"
     decl_name: "assignment"
-    pretty_name: "assignment"
+    internal_name: "assignment"
     attr:
       * { type: "ExpList", required: true, name: "expList" }
       * { type: "Assign", required: true, name: "assign" }
@@ -286,20 +286,20 @@ types =
   * {
     type: "node"
     decl_name: "IfCond"
-    pretty_name: "if_cond"
+    internal_name: "if_cond"
     attr:
       * { special: true, type: "sel", required: true, name: "condition", any: { "Exp", "assignment" } }
   }
   * {
     type: "leaf"
     decl_name: "IfType"
-    pretty_name: "if_type"
+    internal_name: "if_type"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "If"
-    pretty_name: "if"
+    internal_name: "if"
     attr:
       * { type: "IfType", required: true, name: "type" }
       * { special: true, type: "sel_list", required: true, name: "nodes", any: { "IfCond", "Block", "Statement" } }
@@ -307,13 +307,13 @@ types =
   * {
     type: "leaf"
     decl_name: "WhileType"
-    pretty_name: "while_type"
+    internal_name: "while_type"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "While"
-    pretty_name: "while"
+    internal_name: "while"
     attr:
       * { type: "WhileType", required: true, name: "type" }
       * { type: "Exp", required: true, name: "condition" }
@@ -322,7 +322,7 @@ types =
   * {
     type: "node"
     decl_name: "Repeat"
-    pretty_name: "repeat"
+    internal_name: "repeat"
     attr:
       * { type: "Body", required: true, name: "body" }
       * { type: "Exp", required: true, name: "condition" }
@@ -330,14 +330,14 @@ types =
   * {
     type: "node"
     decl_name: "for_step_value"
-    pretty_name: "for_step_value"
+    internal_name: "for_step_value"
     attr:
       * { type: "Exp", required: true, name: "value" }
   }
   * {
     type: "node"
     decl_name: "For"
-    pretty_name: "for"
+    internal_name: "for"
     attr:
       * { type: "Variable", required: true, name: "varName" }
       * { type: "Exp", required: true, name: "startValue" }
@@ -348,7 +348,7 @@ types =
   * {
     type: "node"
     decl_name: "ForEach"
-    pretty_name: "for_each"
+    internal_name: "for_each"
     attr:
       * { type: "AssignableNameList", required: true, name: "nameList" }
       * { special: true, type: "sel", required: true, name: "loopValue", any: { "star_exp", "ExpList" } }
@@ -357,14 +357,14 @@ types =
   * {
     type: "node"
     decl_name: "Do"
-    pretty_name: "do"
+    internal_name: "do"
     attr:
       * { type: "Body", required: true, name: "body" }
   }
   * {
     type: "node"
     decl_name: "catch_block"
-    pretty_name: "catch_block"
+    internal_name: "catch_block"
     attr:
       * { type: "Variable", required: true, name: "err" }
       * { type: "Block", required: true, name: "body" }
@@ -372,7 +372,7 @@ types =
   * {
     type: "node"
     decl_name: "Try"
-    pretty_name: "try"
+    internal_name: "try"
     attr:
       * { special: true, type: "sel", required: true, name: "func", any: { "Block", "Exp" } }
       * { type: "catch_block", required: false, name: "catchBlock" }
@@ -380,7 +380,7 @@ types =
   * {
     type: "node"
     decl_name: "Comprehension"
-    pretty_name: "comp"
+    internal_name: "comp"
     attr:
       * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "Statement" } }
       * { type: "CompInner", required: true, name: "forLoop" }
@@ -388,14 +388,14 @@ types =
   * {
     type: "node"
     decl_name: "comp_value"
-    pretty_name: "comp_value"
+    internal_name: "comp_value"
     attr:
       * { type: "Exp", required: true, name: "value" }
   }
   * {
     type: "node"
     decl_name: "TblComprehension"
-    pretty_name: "tbl_comp"
+    internal_name: "tbl_comp"
     attr:
       * { type: "Exp", required: true, name: "key" }
       * { type: "comp_value", required: false, name: "value" }
@@ -404,14 +404,14 @@ types =
   * {
     type: "node"
     decl_name: "star_exp"
-    pretty_name: "star_exp"
+    internal_name: "star_exp"
     attr:
       * { type: "Exp", required: true, name: "value" }
   }
   * {
     type: "node"
     decl_name: "CompForEach"
-    pretty_name: "comp_for_each"
+    internal_name: "comp_for_each"
     attr:
       * { type: "AssignableNameList", required: true, name: "nameList" }
       * { special: true, type: "sel", required: true, name: "loopValue", any: { "star_exp", "Exp" } }
@@ -419,7 +419,7 @@ types =
   * {
     type: "node"
     decl_name: "CompFor"
-    pretty_name: "comp_for"
+    internal_name: "comp_for"
     attr:
       * { type: "Variable", required: true, name: "varName" }
       * { type: "Exp", required: true, name: "startValue" }
@@ -429,7 +429,7 @@ types =
   * {
     type: "node"
     decl_name: "CompInner"
-    pretty_name: "comp_inner"
+    internal_name: "comp_inner"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "items", any: { "CompFor", "CompForEach", "Exp" } }
@@ -437,7 +437,7 @@ types =
   * {
     type: "node"
     decl_name: "Assign"
-    pretty_name: "assign"
+    internal_name: "assign"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "values", any: { "With", "If", "Switch", "TableBlock", "Exp" } }
@@ -445,13 +445,13 @@ types =
   * {
     type: "leaf"
     decl_name: "update_op"
-    pretty_name: "update_op"
+    internal_name: "update_op"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Update"
-    pretty_name: "update"
+    internal_name: "update"
     attr:
       * { type: "update_op", required: true, name: "op" }
       * { type: "Exp", required: true, name: "value" }
@@ -459,26 +459,26 @@ types =
   * {
     type: "leaf"
     decl_name: "BinaryOperator"
-    pretty_name: "binary_op"
+    internal_name: "binary_op"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "unary_operator"
-    pretty_name: "unary_op"
+    internal_name: "unary_op"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Assignable"
-    pretty_name: "assignable"
+    internal_name: "assignable"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "AssignableChain", "Variable", "SelfName" } }
   }
   * {
     type: "node"
     decl_name: "exp_op_value"
-    pretty_name: "exp_op_value"
+    internal_name: "exp_op_value"
     attr:
       * { type: "BinaryOperator", required: true, name: "op" }
       * { special: true, type: "list", required: true, name: "pipeExprs", any: { "unary_exp" } }
@@ -486,7 +486,7 @@ types =
   * {
     type: "node"
     decl_name: "Exp"
-    pretty_name: "exp"
+    internal_name: "exp"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "pipeExprs", any: { "unary_exp" } }
@@ -496,21 +496,21 @@ types =
   * {
     type: "node"
     decl_name: "Callable"
-    pretty_name: "callable"
+    internal_name: "callable"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "Variable", "SelfName", "VarArg", "Parens", "MacroName" } }
   }
   * {
     type: "node"
     decl_name: "variable_pair"
-    pretty_name: "variable_pair"
+    internal_name: "variable_pair"
     attr:
       * { type: "Variable", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "normal_pair"
-    pretty_name: "normal_pair"
+    internal_name: "normal_pair"
     attr:
       * { special: true, type: "sel", required: true, name: "key", any: { "KeyName", "Exp", "DoubleString", "SingleString", "LuaString" } }
       * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "TableBlock" } }
@@ -518,7 +518,7 @@ types =
   * {
     type: "node"
     decl_name: "default_pair"
-    pretty_name: "default_pair"
+    internal_name: "default_pair"
     attr:
       * { special: true, type: "sel", required: true, name: "key", any: { "Variable", "KeyName", "Exp" } }
       * { type: "Seperator", required: true, name: "sep" }
@@ -528,14 +528,14 @@ types =
   * {
     type: "node"
     decl_name: "meta_variable_pair"
-    pretty_name: "meta_variable_pair"
+    internal_name: "meta_variable_pair"
     attr:
       * { type: "Variable", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "meta_normal_pair"
-    pretty_name: "meta_normal_pair"
+    internal_name: "meta_normal_pair"
     attr:
       * { special: true, type: "sel", required: false, name: "key", any: { "Name", "Exp" } }
       * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "TableBlock" } }
@@ -543,7 +543,7 @@ types =
   * {
     type: "node"
     decl_name: "meta_default_pair"
-    pretty_name: "meta_default_pair"
+    internal_name: "meta_default_pair"
     attr:
       * { special: true, type: "sel", required: false, name: "key", any: { "Variable", "Name" } }
       * { type: "Seperator", required: true, name: "sep" }
@@ -553,7 +553,7 @@ types =
   * {
     type: "node"
     decl_name: "simple_table"
-    pretty_name: "simple_table"
+    internal_name: "simple_table"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "pairs", any: { "variable_pair", "normal_pair", "meta_variable_pair", "meta_normal_pair" } }
@@ -561,32 +561,32 @@ types =
   * {
     type: "node"
     decl_name: "SimpleValue"
-    pretty_name: "simple_value"
+    internal_name: "simple_value"
     attr:
       * { special: true, type: "sel", required: true, name: "value", any: { "If", "Switch", "With", "ClassDecl", "ForEach", "For", "While", "Do", "Try", "unary_value", "TblComprehension", "TableLit", "Comprehension", "FunLit", "Num" } }
   }
   * {
     type: "leaf"
     decl_name: "LuaStringOpen"
-    pretty_name: "lua_string_open"
+    internal_name: "lua_string_open"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "LuaStringContent"
-    pretty_name: "lua_string_content"
+    internal_name: "lua_string_content"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "LuaStringClose"
-    pretty_name: "lua_string_close"
+    internal_name: "lua_string_close"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "LuaString"
-    pretty_name: "lua_string"
+    internal_name: "lua_string"
     attr:
       * { type: "LuaStringOpen", required: true, name: "open" }
       * { type: "LuaStringContent", required: true, name: "content" }
@@ -595,26 +595,26 @@ types =
   * {
     type: "leaf"
     decl_name: "SingleString"
-    pretty_name: "single_string"
+    internal_name: "single_string"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "double_string_inner"
-    pretty_name: "double_string_inner"
+    internal_name: "double_string_inner"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "double_string_content"
-    pretty_name: "double_string_content"
+    internal_name: "double_string_content"
     attr:
       * { special: true, type: "sel", required: true, name: "content", any: { "double_string_inner", "Exp" } }
   }
   * {
     type: "node"
     decl_name: "DoubleString"
-    pretty_name: "double_string"
+    internal_name: "double_string"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: false, name: "segments", any: { "double_string_content" } }
@@ -622,41 +622,41 @@ types =
   * {
     type: "node"
     decl_name: "String"
-    pretty_name: "string"
+    internal_name: "string"
     attr:
       * { special: true, type: "sel", required: true, name: "str", any: { "DoubleString", "SingleString", "LuaString" } }
   }
   * {
     type: "leaf"
     decl_name: "Metatable"
-    pretty_name: "metatable"
+    internal_name: "metatable"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Metamethod"
-    pretty_name: "metamethod"
+    internal_name: "metamethod"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "DotChainItem"
-    pretty_name: "dot_chain_item"
+    internal_name: "dot_chain_item"
     attr:
       * { special: true, type: "sel", required: true, name: "name", any: { "Name", "Metatable", "Metamethod" } }
   }
   * {
     type: "node"
     decl_name: "ColonChainItem"
-    pretty_name: "colon_chain_item"
+    internal_name: "colon_chain_item"
     attr:
       * { special: true, type: "sel", required: true, name: "name", any: { "LuaKeyword", "Name", "Metamethod" } }
   }
   * {
     type: "node"
     decl_name: "Slice"
-    pretty_name: "slice"
+    internal_name: "slice"
     attr:
       * { special: true, type: "sel", required: true, name: "startValue", any: { "Exp", "default_value" } }
       * { special: true, type: "sel", required: true, name: "stopValue", any: { "Exp", "default_value" } }
@@ -665,14 +665,14 @@ types =
   * {
     type: "node"
     decl_name: "Parens"
-    pretty_name: "parens"
+    internal_name: "parens"
     attr:
       * { type: "Exp", required: true, name: "expr" }
   }
   * {
     type: "node"
     decl_name: "Invoke"
-    pretty_name: "invoke"
+    internal_name: "invoke"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: false, name: "args", any: { "Exp", "SingleString", "DoubleString", "LuaString", "TableLit" } }
@@ -680,19 +680,19 @@ types =
   * {
     type: "leaf"
     decl_name: "existential_op"
-    pretty_name: "existential_op"
+    internal_name: "existential_op"
     attr: nil
   }
   * {
     type: "leaf"
     decl_name: "table_appending_op"
-    pretty_name: "table_appending_op"
+    internal_name: "table_appending_op"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "ChainValue"
-    pretty_name: "chain_value"
+    internal_name: "chain_value"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "items", any: { "Callable", "Invoke", "DotChainItem", "ColonChainItem", "Slice", "Exp", "String", "InvokeArgs", "existential_op", "table_appending_op" } }
@@ -700,7 +700,7 @@ types =
   * {
     type: "node"
     decl_name: "AssignableChain"
-    pretty_name: "assignable_chain"
+    internal_name: "assignable_chain"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "items", any: { "Callable", "Invoke", "DotChainItem", "ColonChainItem", "Exp", "String" } }
@@ -708,27 +708,27 @@ types =
   * {
     type: "node"
     decl_name: "Value"
-    pretty_name: "value"
+    internal_name: "value"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "SimpleValue", "simple_table", "ChainValue", "String" } }
   }
   * {
     type: "leaf"
     decl_name: "default_value"
-    pretty_name: "default_value"
+    internal_name: "default_value"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "SpreadExp"
-    pretty_name: "spread_exp"
+    internal_name: "spread_exp"
     attr:
       * { type: "Exp", required: true, name: "exp" }
   }
   * {
     type: "node"
     decl_name: "TableLit"
-    pretty_name: "table_lit"
+    internal_name: "table_lit"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "SpreadExp", "Exp", "default_pair", "meta_variable_pair", "meta_normal_pair", "meta_default_pair" } }
@@ -736,7 +736,7 @@ types =
   * {
     type: "node"
     decl_name: "TableBlockIndent"
-    pretty_name: "table_block_indent"
+    internal_name: "table_block_indent"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "TableBlockIndent", "default_pair", "meta_variable_pair", "meta_normal_pair", "meta_default_pair" } }
@@ -744,7 +744,7 @@ types =
   * {
     type: "node"
     decl_name: "TableBlock"
-    pretty_name: "table_block"
+    internal_name: "table_block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "TableBlockIndent", "Exp", "TableBlock", "SpreadExp", "default_pair" } }
@@ -752,7 +752,7 @@ types =
   * {
     type: "node"
     decl_name: "class_member_list"
-    pretty_name: "class_member_list"
+    internal_name: "class_member_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "values", any: { "variable_pair", "normal_pair" } }
@@ -760,7 +760,7 @@ types =
   * {
     type: "node"
     decl_name: "ClassBlock"
-    pretty_name: "class_block"
+    internal_name: "class_block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "contents", any: { "class_member_list", "Statement" } }
@@ -768,7 +768,7 @@ types =
   * {
     type: "node"
     decl_name: "ClassDecl"
-    pretty_name: "class_decl"
+    internal_name: "class_decl"
     attr:
       * { type: "Assignable", required: false, name: "name" }
       * { type: "Exp", required: false, name: "extend" }
@@ -778,7 +778,7 @@ types =
   * {
     type: "node"
     decl_name: "global_values"
-    pretty_name: "global_values"
+    internal_name: "global_values"
     attr:
       * { type: "NameList", required: true, name: "nameList" }
       * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
@@ -786,26 +786,26 @@ types =
   * {
     type: "leaf"
     decl_name: "global_op"
-    pretty_name: "global_op"
+    internal_name: "global_op"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Global"
-    pretty_name: "global"
+    internal_name: "global"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "ClassDecl", "global_op", "global_values" } }
   }
   * {
     type: "leaf"
     decl_name: "export_default"
-    pretty_name: "export_default"
+    internal_name: "export_default"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Export"
-    pretty_name: "export"
+    internal_name: "export"
     attr:
       * { type: "export_default", required: false, name: "def" }
       * { special: true, type: "sel", required: true, name: "target", any: { "ExpList", "Exp", "Macro" } }
@@ -814,7 +814,7 @@ types =
   * {
     type: "node"
     decl_name: "FnArgDef"
-    pretty_name: "fn_arg_def"
+    internal_name: "fn_arg_def"
     attr:
       * { special: true, type: "sel", required: true, name: "name", any: { "Variable", "SelfName" } }
       * { type: "existential_op", required: false, name: "op" }
@@ -823,7 +823,7 @@ types =
   * {
     type: "node"
     decl_name: "FnArgDefList"
-    pretty_name: "fn_arg_def_list"
+    internal_name: "fn_arg_def_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: false, name: "definitions", any: { "FnArgDef" } }
@@ -832,14 +832,14 @@ types =
   * {
     type: "node"
     decl_name: "outer_var_shadow"
-    pretty_name: "outer_var_shadow"
+    internal_name: "outer_var_shadow"
     attr:
       * { type: "NameList", required: false, name: "varList" }
   }
   * {
     type: "node"
     decl_name: "FnArgsDef"
-    pretty_name: "fn_args_def"
+    internal_name: "fn_args_def"
     attr:
       * { type: "FnArgDefList", required: false, name: "defList" }
       * { type: "outer_var_shadow", required: false, name: "shadowOption" }
@@ -847,13 +847,13 @@ types =
   * {
     type: "leaf"
     decl_name: "fn_arrow"
-    pretty_name: "fn_arrow"
+    internal_name: "fn_arrow"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "FunLit"
-    pretty_name: "fun_lit"
+    internal_name: "fun_lit"
     attr:
       * { type: "FnArgsDef", required: false, name: "argsDef" }
       * { type: "fn_arrow", required: true, name: "arrow" }
@@ -862,14 +862,14 @@ types =
   * {
     type: "node"
     decl_name: "MacroName"
-    pretty_name: "macro_name"
+    internal_name: "macro_name"
     attr:
       * { type: "Name", required: true, name: "name" }
   }
   * {
     type: "node"
     decl_name: "MacroLit"
-    pretty_name: "macro_lit"
+    internal_name: "macro_lit"
     attr:
       * { type: "FnArgDefList", required: false, name: "argsDef" }
       * { type: "Body", required: true, name: "body" }
@@ -877,14 +877,14 @@ types =
   * {
     type: "node"
     decl_name: "MacroInPlace"
-    pretty_name: "macro_in_place"
+    internal_name: "macro_in_place"
     attr:
       * { type: "Body", required: true, name: "body" }
   }
   * {
     type: "node"
     decl_name: "Macro"
-    pretty_name: "macro"
+    internal_name: "macro"
     attr:
       * { type: "Name", required: true, name: "name" }
       * { type: "MacroLit", required: true, name: "macroLit" }
@@ -892,14 +892,14 @@ types =
   * {
     type: "node"
     decl_name: "NameOrDestructure"
-    pretty_name: "name_or_des"
+    internal_name: "name_or_des"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "Variable", "TableLit" } }
   }
   * {
     type: "node"
     decl_name: "AssignableNameList"
-    pretty_name: "assignable_name_list"
+    internal_name: "assignable_name_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "items", any: { "NameOrDestructure" } }
@@ -907,7 +907,7 @@ types =
   * {
     type: "node"
     decl_name: "InvokeArgs"
-    pretty_name: "invoke_args"
+    internal_name: "invoke_args"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "sel_list", required: true, name: "args", any: { "Exp", "TableBlock" } }
@@ -915,13 +915,13 @@ types =
   * {
     type: "leaf"
     decl_name: "const_value"
-    pretty_name: "const_value"
+    internal_name: "const_value"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "unary_value"
-    pretty_name: "unary_value"
+    internal_name: "unary_value"
     attr:
       * { special: true, type: "list", required: true, name: "ops", any: { "unary_operator" } }
       * { type: "Value", required: true, name: "value" }
@@ -929,7 +929,7 @@ types =
   * {
     type: "node"
     decl_name: "unary_exp"
-    pretty_name: "unary_exp"
+    internal_name: "unary_exp"
     attr:
       * { special: true, type: "list", required: false, name: "ops", any: { "unary_operator" } }
       * { special: true, type: "list", required: true, name: "expos", any: { "Value" } }
@@ -937,7 +937,7 @@ types =
   * {
     type: "node"
     decl_name: "ExpListAssign"
-    pretty_name: "exp_list_assign"
+    internal_name: "exp_list_assign"
     attr:
       * { type: "ExpList", required: true, name: "expList" }
       * { special: true, type: "sel", required: false, name: "action", any: { "Update", "Assign" } }
@@ -945,7 +945,7 @@ types =
   * {
     type: "node"
     decl_name: "if_line"
-    pretty_name: "if_line"
+    internal_name: "if_line"
     attr:
       * { type: "IfType", required: true, name: "type" }
       * { type: "IfCond", required: true, name: "condition" }
@@ -953,13 +953,13 @@ types =
   * {
     type: "leaf"
     decl_name: "BreakLoop"
-    pretty_name: "break_loop"
+    internal_name: "break_loop"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "PipeBody"
-    pretty_name: "pipe_body"
+    internal_name: "pipe_body"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: true, name: "values", any: { "unary_exp" } }
@@ -967,20 +967,20 @@ types =
   * {
     type: "node"
     decl_name: "statement_appendix"
-    pretty_name: "statement_appendix"
+    internal_name: "statement_appendix"
     attr:
       * { special: true, type: "sel", required: true, name: "item", any: { "if_line", "CompInner" } }
   }
   * {
     type: "leaf"
     decl_name: "statement_sep"
-    pretty_name: "statement_sep"
+    internal_name: "statement_sep"
     attr: nil
   }
   * {
     type: "node"
     decl_name: "Statement"
-    pretty_name: "statement"
+    internal_name: "statement"
     attr:
       * { special: true, type: "sel", required: true, name: "content", any: { "Import", "While", "Repeat", "For", "ForEach", "Return", "Local", "Global", "Export", "Macro", "MacroInPlace", "BreakLoop", "Label", "Goto", "Backcall", "LocalAttrib", "PipeBody", "ExpListAssign" } }
       * { type: "statement_appendix", required: false, name: "appendix" }
@@ -989,14 +989,14 @@ types =
   * {
     type: "node"
     decl_name: "Body"
-    pretty_name: "body"
+    internal_name: "body"
     attr:
       * { special: true, type: "sel", required: true, name: "content", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
     decl_name: "Block"
-    pretty_name: "block"
+    internal_name: "block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
       * { special: true, type: "list", required: false, name: "statements", any: { "Statement" } }
@@ -1004,14 +1004,14 @@ types =
   * {
     type: "node"
     decl_name: "BlockEnd"
-    pretty_name: "block_end"
+    internal_name: "block_end"
     attr:
       * { type: "Block", required: true, name: "block" }
   }
   * {
     type: "node"
     decl_name: "File"
-    pretty_name: "file"
+    internal_name: "file"
     attr:
       * { type: "Block", required: false, name: "block" }
   }

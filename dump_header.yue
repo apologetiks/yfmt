@@ -70,7 +70,7 @@ parse_h = (h) ->
 
     pname = ln\match "^AST_END%([%w_]+, \"([%w_]+)\"sv%)$"
     if pname -- end stack
-      stack.pretty_name = pname
+      stack.internal_name = pname
       types[] = stack
       stack = nil
       continue
@@ -208,7 +208,7 @@ for v in *types
   print "  * {\n" ..
         "    type: \"#{ v.type }\"\n" ..
         "    decl_name: \"#{ v.decl_name }\"\n" ..
-        "    pretty_name: \"#{ v.pretty_name }\"\n" ..
+        "    internal_name: \"#{ v.internal_name }\"\n" ..
         "    attr:#{ attr }\n" ..
         "  }"
 print ""
