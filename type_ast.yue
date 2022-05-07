@@ -63,14 +63,14 @@ types =
     decl_name: "SelfName"
     pretty_name: "self_item"
     attr:
-      * { type: "sel<true, self_class_name, self_class, self_name, self>", required: true, name: "name" }
+      * { special: true, type: "sel", required: true, name: "name", any: { "self_class_name", "self_class", "self_name", "self" } }
   }
   * {
     type: "node"
     decl_name: "KeyName"
     pretty_name: "key_name"
     attr:
-      * { type: "sel<true, SelfName, Name>", required: true, name: "name" }
+      * { special: true, type: "sel", required: true, name: "name", any: { "SelfName", "Name" } }
   }
   * {
     type: "leaf"
@@ -96,7 +96,7 @@ types =
     pretty_name: "name_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, Variable>", required: true, name: "names" }
+      * { special: true, type: "list", required: true, name: "names", any: { "Variable" } }
   }
   * {
     type: "node"
@@ -104,14 +104,14 @@ types =
     pretty_name: "local_values"
     attr:
       * { type: "NameList", required: true, name: "nameList" }
-      * { type: "sel<false, TableBlock, ExpListLow>", required: false, name: "valueList" }
+      * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
   }
   * {
     type: "node"
     decl_name: "Local"
     pretty_name: "local"
     attr:
-      * { type: "sel<true, local_flag, local_values>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "local_flag", "local_values" } }
   }
   * {
     type: "leaf"
@@ -147,7 +147,7 @@ types =
     pretty_name: "import_literal"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, import_literal_inner>", required: true, name: "inners" }
+      * { special: true, type: "sel_list", required: true, name: "inners", any: { "import_literal_inner" } }
   }
   * {
     type: "node"
@@ -155,7 +155,7 @@ types =
     pretty_name: "import_from"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, colon_import_name, Variable>", required: true, name: "names" }
+      * { special: true, type: "sel_list", required: true, name: "names", any: { "colon_import_name", "Variable" } }
       * { type: "Exp", required: true, name: "exp" }
   }
   * {
@@ -178,7 +178,7 @@ types =
     pretty_name: "import_tab_lit"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<false, variable_pair, normal_pair, MacroName, macro_name_pair, import_all_macro, Exp, meta_variable_pair, meta_normal_pair>", required: false, name: "items" }
+      * { special: true, type: "sel_list", required: false, name: "items", any: { "variable_pair", "normal_pair", "MacroName", "macro_name_pair", "import_all_macro", "Exp", "meta_variable_pair", "meta_normal_pair" } }
   }
   * {
     type: "node"
@@ -186,14 +186,14 @@ types =
     pretty_name: "import_as"
     attr:
       * { type: "ImportLiteral", required: true, name: "literal" }
-      * { type: "sel<false, Variable, ImportTabLit, import_all_macro>", required: false, name: "target" }
+      * { special: true, type: "sel", required: false, name: "target", any: { "Variable", "ImportTabLit", "import_all_macro" } }
   }
   * {
     type: "node"
     decl_name: "Import"
     pretty_name: "import"
     attr:
-      * { type: "sel<true, ImportAs, ImportFrom>", required: true, name: "content" }
+      * { special: true, type: "sel", required: true, name: "content", any: { "ImportAs", "ImportFrom" } }
   }
   * {
     type: "node"
@@ -230,7 +230,7 @@ types =
     pretty_name: "exp_list_low"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, Exp>", required: true, name: "exprs" }
+      * { special: true, type: "list", required: true, name: "exprs", any: { "Exp" } }
   }
   * {
     type: "node"
@@ -238,14 +238,14 @@ types =
     pretty_name: "exp_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, Exp>", required: true, name: "exprs" }
+      * { special: true, type: "list", required: true, name: "exprs", any: { "Exp" } }
   }
   * {
     type: "node"
     decl_name: "Return"
     pretty_name: "return"
     attr:
-      * { type: "sel<false, TableBlock, ExpListLow>", required: false, name: "valueList" }
+      * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
   }
   * {
     type: "node"
@@ -255,7 +255,7 @@ types =
       * { type: "existential_op", required: false, name: "eop" }
       * { type: "ExpList", required: true, name: "valueList" }
       * { type: "Assign", required: false, name: "assigns" }
-      * { type: "sel<true, Block, Statement>", required: true, name: "body" }
+      * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -263,7 +263,7 @@ types =
     pretty_name: "switch_case"
     attr:
       * { type: "ExpList", required: true, name: "valueList" }
-      * { type: "sel<true, Block, Statement>", required: true, name: "body" }
+      * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -272,8 +272,8 @@ types =
     attr:
       * { type: "Exp", required: true, name: "target" }
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, SwitchCase>", required: true, name: "branches" }
-      * { type: "sel<false, Block, Statement>", required: false, name: "lastBranch" }
+      * { special: true, type: "list", required: true, name: "branches", any: { "SwitchCase" } }
+      * { special: true, type: "sel", required: false, name: "lastBranch", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -288,7 +288,7 @@ types =
     decl_name: "IfCond"
     pretty_name: "if_cond"
     attr:
-      * { type: "sel<true, Exp, assignment>", required: true, name: "condition" }
+      * { special: true, type: "sel", required: true, name: "condition", any: { "Exp", "assignment" } }
   }
   * {
     type: "leaf"
@@ -302,7 +302,7 @@ types =
     pretty_name: "if"
     attr:
       * { type: "IfType", required: true, name: "type" }
-      * { type: "sel_list<true, IfCond, Block, Statement>", required: true, name: "nodes" }
+      * { special: true, type: "sel_list", required: true, name: "nodes", any: { "IfCond", "Block", "Statement" } }
   }
   * {
     type: "leaf"
@@ -317,7 +317,7 @@ types =
     attr:
       * { type: "WhileType", required: true, name: "type" }
       * { type: "Exp", required: true, name: "condition" }
-      * { type: "sel<true, Block, Statement>", required: true, name: "body" }
+      * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -343,7 +343,7 @@ types =
       * { type: "Exp", required: true, name: "startValue" }
       * { type: "Exp", required: true, name: "stopValue" }
       * { type: "for_step_value", required: false, name: "stepValue" }
-      * { type: "sel<true, Block, Statement>", required: true, name: "body" }
+      * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -351,8 +351,8 @@ types =
     pretty_name: "for_each"
     attr:
       * { type: "AssignableNameList", required: true, name: "nameList" }
-      * { type: "sel<true, star_exp, ExpList>", required: true, name: "loopValue" }
-      * { type: "sel<true, Block, Statement>", required: true, name: "body" }
+      * { special: true, type: "sel", required: true, name: "loopValue", any: { "star_exp", "ExpList" } }
+      * { special: true, type: "sel", required: true, name: "body", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -374,7 +374,7 @@ types =
     decl_name: "Try"
     pretty_name: "try"
     attr:
-      * { type: "sel<true, Block, Exp>", required: true, name: "func" }
+      * { special: true, type: "sel", required: true, name: "func", any: { "Block", "Exp" } }
       * { type: "catch_block", required: false, name: "catchBlock" }
   }
   * {
@@ -382,7 +382,7 @@ types =
     decl_name: "Comprehension"
     pretty_name: "comp"
     attr:
-      * { type: "sel<true, Exp, Statement>", required: true, name: "value" }
+      * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "Statement" } }
       * { type: "CompInner", required: true, name: "forLoop" }
   }
   * {
@@ -414,7 +414,7 @@ types =
     pretty_name: "comp_for_each"
     attr:
       * { type: "AssignableNameList", required: true, name: "nameList" }
-      * { type: "sel<true, star_exp, Exp>", required: true, name: "loopValue" }
+      * { special: true, type: "sel", required: true, name: "loopValue", any: { "star_exp", "Exp" } }
   }
   * {
     type: "node"
@@ -432,7 +432,7 @@ types =
     pretty_name: "comp_inner"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, CompFor, CompForEach, Exp>", required: true, name: "items" }
+      * { special: true, type: "sel_list", required: true, name: "items", any: { "CompFor", "CompForEach", "Exp" } }
   }
   * {
     type: "node"
@@ -440,7 +440,7 @@ types =
     pretty_name: "assign"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, With, If, Switch, TableBlock, Exp>", required: true, name: "values" }
+      * { special: true, type: "sel_list", required: true, name: "values", any: { "With", "If", "Switch", "TableBlock", "Exp" } }
   }
   * {
     type: "leaf"
@@ -473,7 +473,7 @@ types =
     decl_name: "Assignable"
     pretty_name: "assignable"
     attr:
-      * { type: "sel<true, AssignableChain, Variable, SelfName>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "AssignableChain", "Variable", "SelfName" } }
   }
   * {
     type: "node"
@@ -481,7 +481,7 @@ types =
     pretty_name: "exp_op_value"
     attr:
       * { type: "BinaryOperator", required: true, name: "op" }
-      * { type: "list<true, unary_exp>", required: true, name: "pipeExprs" }
+      * { special: true, type: "list", required: true, name: "pipeExprs", any: { "unary_exp" } }
   }
   * {
     type: "node"
@@ -489,8 +489,8 @@ types =
     pretty_name: "exp"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, unary_exp>", required: true, name: "pipeExprs" }
-      * { type: "list<false, exp_op_value>", required: false, name: "opValues" }
+      * { special: true, type: "list", required: true, name: "pipeExprs", any: { "unary_exp" } }
+      * { special: true, type: "list", required: false, name: "opValues", any: { "exp_op_value" } }
       * { type: "Exp", required: false, name: "nilCoalesed" }
   }
   * {
@@ -498,7 +498,7 @@ types =
     decl_name: "Callable"
     pretty_name: "callable"
     attr:
-      * { type: "sel<true, Variable, SelfName, VarArg, Parens, MacroName>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "Variable", "SelfName", "VarArg", "Parens", "MacroName" } }
   }
   * {
     type: "node"
@@ -512,15 +512,15 @@ types =
     decl_name: "normal_pair"
     pretty_name: "normal_pair"
     attr:
-      * { type: "sel<true, KeyName, Exp, DoubleString, SingleString, LuaString>", required: true, name: "key" }
-      * { type: "sel<true, Exp, TableBlock>", required: true, name: "value" }
+      * { special: true, type: "sel", required: true, name: "key", any: { "KeyName", "Exp", "DoubleString", "SingleString", "LuaString" } }
+      * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "TableBlock" } }
   }
   * {
     type: "node"
     decl_name: "default_pair"
     pretty_name: "default_pair"
     attr:
-      * { type: "sel<true, Variable, KeyName, Exp>", required: true, name: "key" }
+      * { special: true, type: "sel", required: true, name: "key", any: { "Variable", "KeyName", "Exp" } }
       * { type: "Seperator", required: true, name: "sep" }
       * { type: "Exp", required: false, name: "value" }
       * { type: "Exp", required: true, name: "defVal" }
@@ -537,15 +537,15 @@ types =
     decl_name: "meta_normal_pair"
     pretty_name: "meta_normal_pair"
     attr:
-      * { type: "sel<false, Name, Exp>", required: false, name: "key" }
-      * { type: "sel<true, Exp, TableBlock>", required: true, name: "value" }
+      * { special: true, type: "sel", required: false, name: "key", any: { "Name", "Exp" } }
+      * { special: true, type: "sel", required: true, name: "value", any: { "Exp", "TableBlock" } }
   }
   * {
     type: "node"
     decl_name: "meta_default_pair"
     pretty_name: "meta_default_pair"
     attr:
-      * { type: "sel<false, Variable, Name>", required: false, name: "key" }
+      * { special: true, type: "sel", required: false, name: "key", any: { "Variable", "Name" } }
       * { type: "Seperator", required: true, name: "sep" }
       * { type: "Exp", required: false, name: "value" }
       * { type: "Exp", required: true, name: "defVal" }
@@ -556,14 +556,14 @@ types =
     pretty_name: "simple_table"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, variable_pair, normal_pair, meta_variable_pair, meta_normal_pair>", required: true, name: "pairs" }
+      * { special: true, type: "sel_list", required: true, name: "pairs", any: { "variable_pair", "normal_pair", "meta_variable_pair", "meta_normal_pair" } }
   }
   * {
     type: "node"
     decl_name: "SimpleValue"
     pretty_name: "simple_value"
     attr:
-      * { type: "sel<true, If, Switch, With, ClassDecl, ForEach, For, While, Do, Try, unary_value, TblComprehension, TableLit, Comprehension, FunLit, Num>", required: true, name: "value" }
+      * { special: true, type: "sel", required: true, name: "value", any: { "If", "Switch", "With", "ClassDecl", "ForEach", "For", "While", "Do", "Try", "unary_value", "TblComprehension", "TableLit", "Comprehension", "FunLit", "Num" } }
   }
   * {
     type: "leaf"
@@ -609,7 +609,7 @@ types =
     decl_name: "double_string_content"
     pretty_name: "double_string_content"
     attr:
-      * { type: "sel<true, double_string_inner, Exp>", required: true, name: "content" }
+      * { special: true, type: "sel", required: true, name: "content", any: { "double_string_inner", "Exp" } }
   }
   * {
     type: "node"
@@ -617,14 +617,14 @@ types =
     pretty_name: "double_string"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<false, double_string_content>", required: false, name: "segments" }
+      * { special: true, type: "list", required: false, name: "segments", any: { "double_string_content" } }
   }
   * {
     type: "node"
     decl_name: "String"
     pretty_name: "string"
     attr:
-      * { type: "sel<true, DoubleString, SingleString, LuaString>", required: true, name: "str" }
+      * { special: true, type: "sel", required: true, name: "str", any: { "DoubleString", "SingleString", "LuaString" } }
   }
   * {
     type: "leaf"
@@ -644,23 +644,23 @@ types =
     decl_name: "DotChainItem"
     pretty_name: "dot_chain_item"
     attr:
-      * { type: "sel<true, Name, Metatable, Metamethod>", required: true, name: "name" }
+      * { special: true, type: "sel", required: true, name: "name", any: { "Name", "Metatable", "Metamethod" } }
   }
   * {
     type: "node"
     decl_name: "ColonChainItem"
     pretty_name: "colon_chain_item"
     attr:
-      * { type: "sel<true, LuaKeyword, Name, Metamethod>", required: true, name: "name" }
+      * { special: true, type: "sel", required: true, name: "name", any: { "LuaKeyword", "Name", "Metamethod" } }
   }
   * {
     type: "node"
     decl_name: "Slice"
     pretty_name: "slice"
     attr:
-      * { type: "sel<true, Exp, default_value>", required: true, name: "startValue" }
-      * { type: "sel<true, Exp, default_value>", required: true, name: "stopValue" }
-      * { type: "sel<true, Exp, default_value>", required: true, name: "stepValue" }
+      * { special: true, type: "sel", required: true, name: "startValue", any: { "Exp", "default_value" } }
+      * { special: true, type: "sel", required: true, name: "stopValue", any: { "Exp", "default_value" } }
+      * { special: true, type: "sel", required: true, name: "stepValue", any: { "Exp", "default_value" } }
   }
   * {
     type: "node"
@@ -675,7 +675,7 @@ types =
     pretty_name: "invoke"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<false, Exp, SingleString, DoubleString, LuaString, TableLit>", required: false, name: "args" }
+      * { special: true, type: "sel_list", required: false, name: "args", any: { "Exp", "SingleString", "DoubleString", "LuaString", "TableLit" } }
   }
   * {
     type: "leaf"
@@ -695,7 +695,7 @@ types =
     pretty_name: "chain_value"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, Callable, Invoke, DotChainItem, ColonChainItem, Slice, Exp, String, InvokeArgs, existential_op, table_appending_op>", required: true, name: "items" }
+      * { special: true, type: "sel_list", required: true, name: "items", any: { "Callable", "Invoke", "DotChainItem", "ColonChainItem", "Slice", "Exp", "String", "InvokeArgs", "existential_op", "table_appending_op" } }
   }
   * {
     type: "node"
@@ -703,14 +703,14 @@ types =
     pretty_name: "assignable_chain"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, Callable, Invoke, DotChainItem, ColonChainItem, Exp, String>", required: true, name: "items" }
+      * { special: true, type: "sel_list", required: true, name: "items", any: { "Callable", "Invoke", "DotChainItem", "ColonChainItem", "Exp", "String" } }
   }
   * {
     type: "node"
     decl_name: "Value"
     pretty_name: "value"
     attr:
-      * { type: "sel<true, SimpleValue, simple_table, ChainValue, String>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "SimpleValue", "simple_table", "ChainValue", "String" } }
   }
   * {
     type: "leaf"
@@ -731,7 +731,7 @@ types =
     pretty_name: "table_lit"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<false, variable_pair, normal_pair, SpreadExp, Exp, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>", required: false, name: "values" }
+      * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "SpreadExp", "Exp", "default_pair", "meta_variable_pair", "meta_normal_pair", "meta_default_pair" } }
   }
   * {
     type: "node"
@@ -739,7 +739,7 @@ types =
     pretty_name: "table_block_indent"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>", required: false, name: "values" }
+      * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "TableBlockIndent", "default_pair", "meta_variable_pair", "meta_normal_pair", "meta_default_pair" } }
   }
   * {
     type: "node"
@@ -747,7 +747,7 @@ types =
     pretty_name: "table_block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, Exp, TableBlock, SpreadExp, default_pair>", required: false, name: "values" }
+      * { special: true, type: "sel_list", required: false, name: "values", any: { "variable_pair", "normal_pair", "TableBlockIndent", "Exp", "TableBlock", "SpreadExp", "default_pair" } }
   }
   * {
     type: "node"
@@ -755,7 +755,7 @@ types =
     pretty_name: "class_member_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, variable_pair, normal_pair>", required: true, name: "values" }
+      * { special: true, type: "sel_list", required: true, name: "values", any: { "variable_pair", "normal_pair" } }
   }
   * {
     type: "node"
@@ -763,7 +763,7 @@ types =
     pretty_name: "class_block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, class_member_list, Statement>", required: true, name: "contents" }
+      * { special: true, type: "sel_list", required: true, name: "contents", any: { "class_member_list", "Statement" } }
   }
   * {
     type: "node"
@@ -781,7 +781,7 @@ types =
     pretty_name: "global_values"
     attr:
       * { type: "NameList", required: true, name: "nameList" }
-      * { type: "sel<false, TableBlock, ExpListLow>", required: false, name: "valueList" }
+      * { special: true, type: "sel", required: false, name: "valueList", any: { "TableBlock", "ExpListLow" } }
   }
   * {
     type: "leaf"
@@ -794,7 +794,7 @@ types =
     decl_name: "Global"
     pretty_name: "global"
     attr:
-      * { type: "sel<true, ClassDecl, global_op, global_values>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "ClassDecl", "global_op", "global_values" } }
   }
   * {
     type: "leaf"
@@ -808,7 +808,7 @@ types =
     pretty_name: "export"
     attr:
       * { type: "export_default", required: false, name: "def" }
-      * { type: "sel<true, ExpList, Exp, Macro>", required: true, name: "target" }
+      * { special: true, type: "sel", required: true, name: "target", any: { "ExpList", "Exp", "Macro" } }
       * { type: "Assign", required: false, name: "assign" }
   }
   * {
@@ -816,7 +816,7 @@ types =
     decl_name: "FnArgDef"
     pretty_name: "fn_arg_def"
     attr:
-      * { type: "sel<true, Variable, SelfName>", required: true, name: "name" }
+      * { special: true, type: "sel", required: true, name: "name", any: { "Variable", "SelfName" } }
       * { type: "existential_op", required: false, name: "op" }
       * { type: "Exp", required: false, name: "defaultValue" }
   }
@@ -826,7 +826,7 @@ types =
     pretty_name: "fn_arg_def_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<false, FnArgDef>", required: false, name: "definitions" }
+      * { special: true, type: "list", required: false, name: "definitions", any: { "FnArgDef" } }
       * { type: "VarArg", required: false, name: "varArg" }
   }
   * {
@@ -894,7 +894,7 @@ types =
     decl_name: "NameOrDestructure"
     pretty_name: "name_or_des"
     attr:
-      * { type: "sel<true, Variable, TableLit>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "Variable", "TableLit" } }
   }
   * {
     type: "node"
@@ -902,7 +902,7 @@ types =
     pretty_name: "assignable_name_list"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, NameOrDestructure>", required: true, name: "items" }
+      * { special: true, type: "list", required: true, name: "items", any: { "NameOrDestructure" } }
   }
   * {
     type: "node"
@@ -910,7 +910,7 @@ types =
     pretty_name: "invoke_args"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "sel_list<true, Exp, TableBlock>", required: true, name: "args" }
+      * { special: true, type: "sel_list", required: true, name: "args", any: { "Exp", "TableBlock" } }
   }
   * {
     type: "leaf"
@@ -923,7 +923,7 @@ types =
     decl_name: "unary_value"
     pretty_name: "unary_value"
     attr:
-      * { type: "list<true, unary_operator>", required: true, name: "ops" }
+      * { special: true, type: "list", required: true, name: "ops", any: { "unary_operator" } }
       * { type: "Value", required: true, name: "value" }
   }
   * {
@@ -931,8 +931,8 @@ types =
     decl_name: "unary_exp"
     pretty_name: "unary_exp"
     attr:
-      * { type: "list<false, unary_operator>", required: false, name: "ops" }
-      * { type: "list<true, Value>", required: true, name: "expos" }
+      * { special: true, type: "list", required: false, name: "ops", any: { "unary_operator" } }
+      * { special: true, type: "list", required: true, name: "expos", any: { "Value" } }
   }
   * {
     type: "node"
@@ -940,7 +940,7 @@ types =
     pretty_name: "exp_list_assign"
     attr:
       * { type: "ExpList", required: true, name: "expList" }
-      * { type: "sel<false, Update, Assign>", required: false, name: "action" }
+      * { special: true, type: "sel", required: false, name: "action", any: { "Update", "Assign" } }
   }
   * {
     type: "node"
@@ -962,14 +962,14 @@ types =
     pretty_name: "pipe_body"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<true, unary_exp>", required: true, name: "values" }
+      * { special: true, type: "list", required: true, name: "values", any: { "unary_exp" } }
   }
   * {
     type: "node"
     decl_name: "statement_appendix"
     pretty_name: "statement_appendix"
     attr:
-      * { type: "sel<true, if_line, CompInner>", required: true, name: "item" }
+      * { special: true, type: "sel", required: true, name: "item", any: { "if_line", "CompInner" } }
   }
   * {
     type: "leaf"
@@ -982,7 +982,7 @@ types =
     decl_name: "Statement"
     pretty_name: "statement"
     attr:
-      * { type: "sel<true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>", required: true, name: "content" }
+      * { special: true, type: "sel", required: true, name: "content", any: { "Import", "While", "Repeat", "For", "ForEach", "Return", "Local", "Global", "Export", "Macro", "MacroInPlace", "BreakLoop", "Label", "Goto", "Backcall", "LocalAttrib", "PipeBody", "ExpListAssign" } }
       * { type: "statement_appendix", required: false, name: "appendix" }
       * { type: "statement_sep", required: false, name: "needSep" }
   }
@@ -991,7 +991,7 @@ types =
     decl_name: "Body"
     pretty_name: "body"
     attr:
-      * { type: "sel<true, Block, Statement>", required: true, name: "content" }
+      * { special: true, type: "sel", required: true, name: "content", any: { "Block", "Statement" } }
   }
   * {
     type: "node"
@@ -999,7 +999,7 @@ types =
     pretty_name: "block"
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { type: "list<false, Statement>", required: false, name: "statements" }
+      * { special: true, type: "list", required: false, name: "statements", any: { "Statement" } }
   }
   * {
     type: "node"

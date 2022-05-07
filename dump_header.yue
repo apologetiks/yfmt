@@ -22,6 +22,45 @@ get = ->
 chop_t = (names) ->
   names\gsub "([%w_]+)_t", "%1"
 
+split_t = (names) ->
+  n = {}
+  names = names\gsub "[%w_]+<([%w_,]+>", "%1"
+  for name in names\gmatch "([%w_]+),?%s?"
+    -- always skip "required"
+    if name == "true" or name == "false"
+      continue
+
+    n[] = name
+  n
+
+special_types = { sel: true, sel_list: true, list: true }
+make_sel = (required, types, name) ->
+  {
+    type: "sel"
+    special: true
+    required: tobool[required]
+    :name
+    any: split_t chop_t types
+  }
+
+make_sel_list = (required, types, name) ->
+  {
+    type: "sel_list"
+    special: true
+    required: tobool[required]
+    :name
+    any: split_t chop_t types
+  }
+
+make_list = (required, types, name) ->
+  {
+    type: "list"
+    special: true
+    required: tobool[required]
+    :name
+    any: split_t chop_t types
+  }
+
 parse_h = (h) ->
   types = {}
 
@@ -68,10 +107,7 @@ parse_h = (h) ->
 
     required, sel_ts, name = ln\match "^%s+ast_sel<([%w_]+),%s+([%w_,%s]+)> ([%w_]+);$"
     if required and sel_ts and name
-      stack.attr[] =
-        type: chop_t "sel<#{ required }, #{ sel_ts }>"
-        required: tobool[required]
-        :name
+      stack.attr[] = make_sel required, sel_ts, name
 
       continue
 
@@ -79,19 +115,14 @@ parse_h = (h) ->
     -- some of the ast_sel_list decls are split over multiple lines.
     required, sel_t_l, name = ln\match "^%s+ast_sel_list<([%w_]+),%s+(.+)> ([%w_]+);$"
     if required and sel_t_l and name
-      stack.attr[] =
-        type: chop_t "sel_list<#{ required }, #{ sel_t_l }>"
-        required: tobool[required]
-        :name
+      stack.attr[] = make_sel_list required, sel_t_l, name
 
       continue
 
     required, list_t, name = ln\match "^%s+ast_list<([%w_]+),%s+(.+)> ([%w_]+);$"
     if required and list_t and name
-      stack.attr[] =
-        type: chop_t "list<#{ required }, #{ list_t }>"
-        required: tobool[required]
-        :name
+      stack.attr[] = make_list required, list_t, name
+
       continue
 
     --[[
@@ -110,22 +141,47 @@ parse_h = (h) ->
 manual_overrides =
   SimpleValue:
     attr:
-      * { required: true, name: "value", type: "sel<true, If, Switch, With, ClassDecl, ForEach, For, While, Do, Try, unary_value, TblComprehension, TableLit, Comprehension, FunLit, Num>" }
+      * {
+        required: true
+        name: "value"
+        type: "sel"
+        any: split_t chop_t "<true, If, Switch, With, ClassDecl, ForEach, For, While, Do, Try, unary_value, TblComprehension, TableLit, Comprehension, FunLit, Num>" }
   TableLit:
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, SpreadExp, Exp, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>" }
+      * {
+        required: false
+        name: "values"
+        type: "sel_list"
+        any: split_t chop_t "<false, variable_pair, normal_pair, SpreadExp, Exp, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>"
+      }
   TableBlockIndent:
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>" }
+      * {
+        required: false,
+        name: "values",
+        type: "sel_list"
+        any: split_t chop_t "<false, variable_pair, normal_pair, TableBlockIndent, default_pair, meta_variable_pair, meta_normal_pair, meta_default_pair>"
+      }
   TableBlock:
     attr:
       * { type: "Seperator", required: true, name: "sep" }
-      * { required: false, name: "values", type: "sel_list<false, variable_pair, normal_pair, TableBlockIndent, Exp, TableBlock, SpreadExp, default_pair>" }
+      * {
+        required: false
+        name: "values",
+        type: "sel_list"
+        any: split_t chop_t "<false, variable_pair, normal_pair, TableBlockIndent, Exp, TableBlock, SpreadExp, default_pair>"
+      }
   Statement:
     attr:
-      * { required: true, name: "content", type: "sel<true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>" }
+      -- any: <true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>"
+      * {
+        required: true
+        name: "content"
+        type: "sel"
+        any: split_t chop_t "<true, Import, While, Repeat, For, ForEach, Return, Local, Global, Export, Macro, MacroInPlace, BreakLoop, Label, Goto, Backcall, LocalAttrib, PipeBody, ExpListAssign>"
+      }
       * { type: "statement_appendix", required: false, name: "appendix" }
       * { type: "statement_sep", required: false, name: "needSep" }
 
@@ -139,8 +195,10 @@ for v in *types
   for a in *v.attr
     --as_lua = inspect a, { newline: "", indent: "" }
     --as_lua = as_lua\gsub '"', '\\"'
-
-    attr[] = "      * { type: #{ inspect a.type }, required: #{ a.required }, name: #{ inspect a.name } }"
+    unless special_types[a.type]
+      attr[] = "      * { type: #{ inspect a.type }, required: #{ a.required }, name: #{ inspect a.name } }"
+    else
+      attr[] = "      * { special: true, type: #{ inspect a.type }, required: #{ a.required }, name: #{ inspect a.name }, any: #{ inspect a.any } }"
 
   unless #attr > 0
     attr = " nil"

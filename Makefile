@@ -1,6 +1,6 @@
 .PHONY: all build clean gen
 
-all: build
+all: gen build
 
 build:
 	yue -l .
