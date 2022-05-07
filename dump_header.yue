@@ -66,10 +66,10 @@ parse_h = (h) ->
 
       continue
 
-    required, sel_ts, name = ln\match "^%s+ast_sel<([%w_]+),%s+(.+)> ([%w_]+);$"
-    if required and sel_n and name
+    required, sel_ts, name = ln\match "^%s+ast_sel<([%w_]+),%s+([%w_,%s]+)> ([%w_]+);$"
+    if required and sel_ts and name
       stack.attr[] =
-        type: chop_t "sel_<#{ required }, #{ sel_n }>"
+        type: chop_t "sel<#{ required }, #{ sel_ts }>"
         required: tobool[required]
         :name
 
