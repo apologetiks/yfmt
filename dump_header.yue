@@ -2,6 +2,9 @@ import "http.request" as request
 import "inspect" as inspect
 
 ast_h = "https://raw.githubusercontent.com/pigpigyyy/Yuescript/main/src/yuescript/yue_ast.h"
+tobool =
+  ["true"]: true
+  ["false"]: false
 
 get = ->
   req = request.new_from_uri ast_h
@@ -15,6 +18,9 @@ get = ->
     error "failed to fetch yue_ast.h: #{ err }"
 
   b
+
+chop_t = (names) ->
+  names\gsub "([%w_]+)_t", "%1"
 
 parse_h = (h) ->
   types = {}
@@ -50,6 +56,45 @@ parse_h = (h) ->
 
       continue
 
+    -- ast_ptr, ast_sel, ast_list are all important!
+    required, ptr_t, name = ln\match "^%s+ast_ptr<([%w_]+), ([%w_]+)> ([%w_]+);$"
+    if required and ptr_t and name
+      stack.attr[] =
+        type: chop_t ptr_t
+        required: tobool[required]
+        :name
+
+      continue
+
+    required, sel_ts, name = ln\match "^%s+ast_sel<([%w_]+),%s+(.+)> ([%w_]+);$"
+    if required and sel_n and name
+      stack.attr[] =
+        type: chop_t "sel_<#{ required }, #{ sel_n }>"
+        required: tobool[required]
+        :name
+
+      continue
+
+    -- this actually won't work and requires a bit more thought.
+    -- some of the ast_sel_list decls are split over multiple lines.
+    required, sel_t_l, name = ln\match "^%s+ast_sel_list<([%w_]+),%s+(.+)> ([%w_]+);$"
+    if required and sel_t_l and name
+      stack.attr[] =
+        type: chop_t "sel_list<#{ required }, #{ sel_t_l }>"
+        required: tobool[required]
+        :name
+
+      continue
+
+    required, list_t, name = ln\match "^%s+ast_list<([%w_]+),%s+(.+)> ([%w_]+);$"
+    if required and list_t and name
+      stack.attr[] =
+        type: chop_t "list<#{ required }, #{ list_t }>"
+        required: tobool[required]
+        :name
+      continue
+
+    --[[
     -- other attributes
     names = ln\match "^%s+AST_MEMBER%([%w_]+, (.+)%)$"
     if names
@@ -57,17 +102,30 @@ parse_h = (h) ->
       for n in names\gmatch "&?([%w_]+),?%s?"
         stack.attr[] = n
       continue
+    ]]
 
   types
 
 types = parse_h get!
 print "types ="
 for v in *types
+  attr = {}
+  for a in *v.attr
+    --as_lua = inspect a, { newline: "", indent: "" }
+    --as_lua = as_lua\gsub '"', '\\"'
+
+    attr[] = "      * { type: #{ inspect a.type }, required: #{ a.required }, name: #{ inspect a.name } }"
+
+  unless #attr > 0
+    attr = " nil"
+  else
+    attr = "\n" .. (table.concat attr, "\n")
+
   print "  * {\n" ..
         "    type: \"#{ v.type }\"\n" ..
         "    decl_name: \"#{ v.decl_name }\"\n" ..
         "    pretty_name: \"#{ v.pretty_name }\"\n" ..
-        "    attr: #{ inspect v.attr }\n" ..
+        "    attr:#{ attr }\n" ..
         "  }"
 print ""
 print "export default types"
