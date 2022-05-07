@@ -1,0 +1,819 @@
+types =
+  * {
+    type: "leaf"
+    decl_name: "Num"
+    pretty_name: "num"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "Name"
+    pretty_name: "name"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Variable"
+    pretty_name: "variable"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "LabelName"
+    pretty_name: "label_name"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "LuaKeyword"
+    pretty_name: "lua_keyword"
+    attr: { "name" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "self"
+    pretty_name: "self"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "self_name"
+    pretty_name: "self_name"
+    attr: { "name" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "self_class"
+    pretty_name: "self_name"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "self_class_name"
+    pretty_name: "self_class_name"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "SelfName"
+    pretty_name: "self_item"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "KeyName"
+    pretty_name: "key_name"
+    attr: { "name" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "VarArg"
+    pretty_name: "var_arg"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "local_flag"
+    pretty_name: "local_flag"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "Seperator"
+    pretty_name: "seperator"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "NameList"
+    pretty_name: "name_list"
+    attr: { "sep", "names" }
+  }
+  * {
+    type: "node"
+    decl_name: "local_values"
+    pretty_name: "local_values"
+    attr: { "nameList", "valueList" }
+  }
+  * {
+    type: "node"
+    decl_name: "Local"
+    pretty_name: "local"
+    attr: { "item" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "Attrib"
+    pretty_name: "attrib"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "LocalAttrib"
+    pretty_name: "local_attrib"
+    attr: { "attrib", "nameList", "assign" }
+  }
+  * {
+    type: "node"
+    decl_name: "colon_import_name"
+    pretty_name: "colon_import_name"
+    attr: { "name" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "import_literal_inner"
+    pretty_name: "import_literal_inner"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "ImportLiteral"
+    pretty_name: "import_literal"
+    attr: { "sep", "inners" }
+  }
+  * {
+    type: "node"
+    decl_name: "ImportFrom"
+    pretty_name: "import_from"
+    attr: { "sep", "names", "exp" }
+  }
+  * {
+    type: "node"
+    decl_name: "macro_name_pair"
+    pretty_name: "macro_name_pair"
+    attr: { "key", "value" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "import_all_macro"
+    pretty_name: "import_all_macro"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "ImportTabLit"
+    pretty_name: "import_tab_lit"
+    attr: { "sep", "items" }
+  }
+  * {
+    type: "node"
+    decl_name: "ImportAs"
+    pretty_name: "import_as"
+    attr: { "literal", "target" }
+  }
+  * {
+    type: "node"
+    decl_name: "Import"
+    pretty_name: "import"
+    attr: { "content" }
+  }
+  * {
+    type: "node"
+    decl_name: "Label"
+    pretty_name: "label"
+    attr: { "label" }
+  }
+  * {
+    type: "node"
+    decl_name: "Goto"
+    pretty_name: "goto"
+    attr: { "label" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "fn_arrow_back"
+    pretty_name: "fn_arrow_back"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Backcall"
+    pretty_name: "backcall"
+    attr: { "argsDef", "arrow", "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "ExpListLow"
+    pretty_name: "exp_list_low"
+    attr: { "sep", "exprs" }
+  }
+  * {
+    type: "node"
+    decl_name: "ExpList"
+    pretty_name: "exp_list"
+    attr: { "sep", "exprs" }
+  }
+  * {
+    type: "node"
+    decl_name: "Return"
+    pretty_name: "return"
+    attr: { "valueList" }
+  }
+  * {
+    type: "node"
+    decl_name: "With"
+    pretty_name: "with"
+    attr: { "eop", "valueList", "assigns", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "SwitchCase"
+    pretty_name: "switch_case"
+    attr: { "valueList", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "Switch"
+    pretty_name: "switch"
+    attr: { "target", "sep", "branches", "lastBranch" }
+  }
+  * {
+    type: "node"
+    decl_name: "assignment"
+    pretty_name: "assignment"
+    attr: { "expList", "assign" }
+  }
+  * {
+    type: "node"
+    decl_name: "IfCond"
+    pretty_name: "if_cond"
+    attr: { "condition" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "IfType"
+    pretty_name: "if_type"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "If"
+    pretty_name: "if"
+    attr: { "type", "nodes" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "WhileType"
+    pretty_name: "while_type"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "While"
+    pretty_name: "while"
+    attr: { "type", "condition", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "Repeat"
+    pretty_name: "repeat"
+    attr: { "body", "condition" }
+  }
+  * {
+    type: "node"
+    decl_name: "for_step_value"
+    pretty_name: "for_step_value"
+    attr: { "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "For"
+    pretty_name: "for"
+    attr: { "varName", "startValue", "stopValue", "stepValue", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "ForEach"
+    pretty_name: "for_each"
+    attr: { "nameList", "loopValue", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "Do"
+    pretty_name: "do"
+    attr: { "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "catch_block"
+    pretty_name: "catch_block"
+    attr: { "err", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "Try"
+    pretty_name: "try"
+    attr: { "func", "catchBlock" }
+  }
+  * {
+    type: "node"
+    decl_name: "Comprehension"
+    pretty_name: "comp"
+    attr: { "value", "forLoop" }
+  }
+  * {
+    type: "node"
+    decl_name: "comp_value"
+    pretty_name: "comp_value"
+    attr: { "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "TblComprehension"
+    pretty_name: "tbl_comp"
+    attr: { "key", "value", "forLoop" }
+  }
+  * {
+    type: "node"
+    decl_name: "star_exp"
+    pretty_name: "star_exp"
+    attr: { "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "CompForEach"
+    pretty_name: "comp_for_each"
+    attr: { "nameList", "loopValue" }
+  }
+  * {
+    type: "node"
+    decl_name: "CompFor"
+    pretty_name: "comp_for"
+    attr: { "varName", "startValue", "stopValue", "stepValue" }
+  }
+  * {
+    type: "node"
+    decl_name: "CompInner"
+    pretty_name: "comp_inner"
+    attr: { "sep", "items" }
+  }
+  * {
+    type: "node"
+    decl_name: "Assign"
+    pretty_name: "assign"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "update_op"
+    pretty_name: "update_op"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Update"
+    pretty_name: "update"
+    attr: { "op", "value" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "BinaryOperator"
+    pretty_name: "binary_op"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "unary_operator"
+    pretty_name: "unary_op"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Assignable"
+    pretty_name: "assignable"
+    attr: { "item" }
+  }
+  * {
+    type: "node"
+    decl_name: "exp_op_value"
+    pretty_name: "exp_op_value"
+    attr: { "op", "pipeExprs" }
+  }
+  * {
+    type: "node"
+    decl_name: "Exp"
+    pretty_name: "exp"
+    attr: { "sep", "pipeExprs", "opValues", "nilCoalesed" }
+  }
+  * {
+    type: "node"
+    decl_name: "Callable"
+    pretty_name: "callable"
+    attr: { "item" }
+  }
+  * {
+    type: "node"
+    decl_name: "variable_pair"
+    pretty_name: "variable_pair"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "normal_pair"
+    pretty_name: "normal_pair"
+    attr: { "key", "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "default_pair"
+    pretty_name: "default_pair"
+    attr: { "key", "sep", "value", "defVal" }
+  }
+  * {
+    type: "node"
+    decl_name: "meta_variable_pair"
+    pretty_name: "meta_variable_pair"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "meta_normal_pair"
+    pretty_name: "meta_normal_pair"
+    attr: { "key", "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "meta_default_pair"
+    pretty_name: "meta_default_pair"
+    attr: { "key", "sep", "value", "defVal" }
+  }
+  * {
+    type: "node"
+    decl_name: "simple_table"
+    pretty_name: "simple_table"
+    attr: { "sep", "pairs" }
+  }
+  * {
+    type: "node"
+    decl_name: "SimpleValue"
+    pretty_name: "simple_value"
+    attr: { "value" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "LuaStringOpen"
+    pretty_name: "lua_string_open"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "LuaStringContent"
+    pretty_name: "lua_string_content"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "LuaStringClose"
+    pretty_name: "lua_string_close"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "LuaString"
+    pretty_name: "lua_string"
+    attr: { "open", "content", "close" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "SingleString"
+    pretty_name: "single_string"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "double_string_inner"
+    pretty_name: "double_string_inner"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "double_string_content"
+    pretty_name: "double_string_content"
+    attr: { "content" }
+  }
+  * {
+    type: "node"
+    decl_name: "DoubleString"
+    pretty_name: "double_string"
+    attr: { "sep", "segments" }
+  }
+  * {
+    type: "node"
+    decl_name: "String"
+    pretty_name: "string"
+    attr: { "str" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "Metatable"
+    pretty_name: "metatable"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Metamethod"
+    pretty_name: "metamethod"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "DotChainItem"
+    pretty_name: "dot_chain_item"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "ColonChainItem"
+    pretty_name: "colon_chain_item"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "Slice"
+    pretty_name: "slice"
+    attr: { "startValue", "stopValue", "stepValue" }
+  }
+  * {
+    type: "node"
+    decl_name: "Parens"
+    pretty_name: "parens"
+    attr: { "expr" }
+  }
+  * {
+    type: "node"
+    decl_name: "Invoke"
+    pretty_name: "invoke"
+    attr: { "sep", "args" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "existential_op"
+    pretty_name: "existential_op"
+    attr: {}
+  }
+  * {
+    type: "leaf"
+    decl_name: "table_appending_op"
+    pretty_name: "table_appending_op"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "ChainValue"
+    pretty_name: "chain_value"
+    attr: { "sep", "items" }
+  }
+  * {
+    type: "node"
+    decl_name: "AssignableChain"
+    pretty_name: "assignable_chain"
+    attr: { "sep", "items" }
+  }
+  * {
+    type: "node"
+    decl_name: "Value"
+    pretty_name: "value"
+    attr: { "item" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "default_value"
+    pretty_name: "default_value"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "SpreadExp"
+    pretty_name: "spread_exp"
+    attr: { "exp" }
+  }
+  * {
+    type: "node"
+    decl_name: "TableLit"
+    pretty_name: "table_lit"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "node"
+    decl_name: "TableBlockIndent"
+    pretty_name: "table_block_indent"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "node"
+    decl_name: "TableBlock"
+    pretty_name: "table_block"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "node"
+    decl_name: "class_member_list"
+    pretty_name: "class_member_list"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "node"
+    decl_name: "ClassBlock"
+    pretty_name: "class_block"
+    attr: { "sep", "contents" }
+  }
+  * {
+    type: "node"
+    decl_name: "ClassDecl"
+    pretty_name: "class_decl"
+    attr: { "name", "extend", "mixes", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "global_values"
+    pretty_name: "global_values"
+    attr: { "nameList", "valueList" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "global_op"
+    pretty_name: "global_op"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Global"
+    pretty_name: "global"
+    attr: { "item" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "export_default"
+    pretty_name: "export_default"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Export"
+    pretty_name: "export"
+    attr: { "def", "target", "assign" }
+  }
+  * {
+    type: "node"
+    decl_name: "FnArgDef"
+    pretty_name: "fn_arg_def"
+    attr: { "name", "op", "defaultValue" }
+  }
+  * {
+    type: "node"
+    decl_name: "FnArgDefList"
+    pretty_name: "fn_arg_def_list"
+    attr: { "sep", "definitions", "varArg" }
+  }
+  * {
+    type: "node"
+    decl_name: "outer_var_shadow"
+    pretty_name: "outer_var_shadow"
+    attr: { "varList" }
+  }
+  * {
+    type: "node"
+    decl_name: "FnArgsDef"
+    pretty_name: "fn_args_def"
+    attr: { "defList", "shadowOption" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "fn_arrow"
+    pretty_name: "fn_arrow"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "FunLit"
+    pretty_name: "fun_lit"
+    attr: { "argsDef", "arrow", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "MacroName"
+    pretty_name: "macro_name"
+    attr: { "name" }
+  }
+  * {
+    type: "node"
+    decl_name: "MacroLit"
+    pretty_name: "macro_lit"
+    attr: { "argsDef", "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "MacroInPlace"
+    pretty_name: "macro_in_place"
+    attr: { "body" }
+  }
+  * {
+    type: "node"
+    decl_name: "Macro"
+    pretty_name: "macro"
+    attr: { "name", "macroLit" }
+  }
+  * {
+    type: "node"
+    decl_name: "NameOrDestructure"
+    pretty_name: "name_or_des"
+    attr: { "item" }
+  }
+  * {
+    type: "node"
+    decl_name: "AssignableNameList"
+    pretty_name: "assignable_name_list"
+    attr: { "sep", "items" }
+  }
+  * {
+    type: "node"
+    decl_name: "InvokeArgs"
+    pretty_name: "invoke_args"
+    attr: { "sep", "args" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "const_value"
+    pretty_name: "const_value"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "unary_value"
+    pretty_name: "unary_value"
+    attr: { "ops", "value" }
+  }
+  * {
+    type: "node"
+    decl_name: "unary_exp"
+    pretty_name: "unary_exp"
+    attr: { "ops", "expos" }
+  }
+  * {
+    type: "node"
+    decl_name: "ExpListAssign"
+    pretty_name: "exp_list_assign"
+    attr: { "expList", "action" }
+  }
+  * {
+    type: "node"
+    decl_name: "if_line"
+    pretty_name: "if_line"
+    attr: { "type", "condition" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "BreakLoop"
+    pretty_name: "break_loop"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "PipeBody"
+    pretty_name: "pipe_body"
+    attr: { "sep", "values" }
+  }
+  * {
+    type: "node"
+    decl_name: "statement_appendix"
+    pretty_name: "statement_appendix"
+    attr: { "item" }
+  }
+  * {
+    type: "leaf"
+    decl_name: "statement_sep"
+    pretty_name: "statement_sep"
+    attr: {}
+  }
+  * {
+    type: "node"
+    decl_name: "Statement"
+    pretty_name: "statement"
+    attr: { "content", "appendix", "needSep" }
+  }
+  * {
+    type: "node"
+    decl_name: "Body"
+    pretty_name: "body"
+    attr: { "content" }
+  }
+  * {
+    type: "node"
+    decl_name: "Block"
+    pretty_name: "block"
+    attr: { "sep", "statements" }
+  }
+  * {
+    type: "node"
+    decl_name: "BlockEnd"
+    pretty_name: "block_end"
+    attr: { "block" }
+  }
+  * {
+    type: "node"
+    decl_name: "File"
+    pretty_name: "file"
+    attr: { "block" }
+  }
+
+export default types
