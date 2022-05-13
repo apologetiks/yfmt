@@ -1,0 +1,84 @@
+import "type_ast" as types
+import "inspect" as inspect
+
+print "-- generated code; do not edit"
+print "import \"ast_impl\" as ast"
+print "import \"inspect\" as inspect"
+print "_selector_t = ast._selector_t"
+print "_selector_list_t = ast._selector_list_t"
+print "_list_t = ast._list_t"
+print "Node = ast.Node"
+print "Leaf = ast.Leaf"
+print "ast_nodes = {}"
+print "ast_names = {}"
+print [[
+]]
+
+p = (v) ->
+  print (v\gsub "^%s%s%s%s%s%s", "")
+
+ast_names = {}
+for t in *types
+  ast_names[t.decl_name] = t.internal_name
+  print "ast_names[\"#{ t.decl_name }\"] = \"#{ t.internal_name }\""
+
+for t in *types
+  -- what do we want to do here?
+  -- most likely, we want a caller to register a handler for this type.
+  -- so we should be calling something like ast._registered[t.decl_name]?
+  -- for example, if we look at go/ast, each type has (at a minimum)
+  -- End()/Pos(). we don't have that in yue ast.
+  --
+  -- as a matter of fact, all we know are what the node bits are.
+  -- so, it seems that 
+  typ = t.type
+  switch typ
+    when "node"
+      typ = "Node"
+    when "leaf"
+      typ = "Leaf"
+
+  p " 
+    class #{ t.decl_name } extends #{ typ }
+    @type: \"#{ t.type }\"
+    @internal_name: \"#{ t.internal_name }\"
+  "
+
+  if typ == "Leaf"
+    p "    new: (v) => print \"#{ t.decl_name } new: \""
+
+  if t.attr
+    args = {}
+    argassign = {}
+    for i, v in ipairs t.attr
+      iname = "ast_nodes.#{ ast_names[v.type] }"
+      argdecl = "#{ v.name } = #{ iname }!"
+      argdesc = "--@#{ v.name }: #{ argdecl }"
+      switch v.type
+        when "sel"
+          any = [ "ast_nodes.#{ ast_names[v] }" for v in *v.any ]
+          argdecl = "ast_nodes._selector_t(#{ table.concat any, "," })"
+          argdesc = "-- @#{ v.name }: #{ argdecl }"
+        when "sel_list"
+          any = [ "ast_nodes.#{ ast_names[v] }" for v in *v.any ]
+          argdecl = "ast_nodes._selector_list_t(#{ table.concat any, "," })"
+          argdesc = "-- @#{ v.name}: #{ argdecl }"
+        when "list"
+          any = [ "ast_nodes.#{ ast_names[v] }" for v in *v.any ]
+          argdecl = "ast_nodes._list_t(#{ table.concat any, "," })"
+          argdesc = "-- @#{ v.name }: #{ argdecl }"
+        else
+          argdesc = "-- @#{ v.name }: ast_nodes.#{ ast_names[v.type] }"
+
+      p "    #{ argdesc }"
+      args[] = "#{ v.name }"
+      argassign[] = "      @#{ v.name } = #{ v.name }"
+    -- make attributes args to the fn?
+    p "    new: (#{ table.concat args, ", " }) =>"
+    print table.concat argassign, "\n"
+
+  print "ast_nodes.#{ t.internal_name } = #{ t.decl_name }"
+  print ""
+
+print ""
+print "export default ast_nodes"

@@ -1,0 +1,39 @@
+import "temp" as ast_nodes
+import "inspect" as inspect
+
+code = "x = 1\ndo\n  x = 2"
+code = "x = 1"
+
+example = yue.to_ast code, 0
+
+-- convert to code
+rec = (node, prev = nil) ->
+  -- first off, [1] should always be the type.
+  typ = node[1]
+
+  rest = {}
+  for i=2,#node
+    rest[] = node[i]
+
+  -- everything after [1] are args.
+  args = node[2]
+  if #rest > 0 and (type(node[2]) == "table")
+    args = {}
+    -- if rest is a table, we need to continue our descent.
+    for i, v in ipairs rest
+      args[] = rec v, node
+
+  unless ast_nodes[typ]
+    error "ast_nodes.#{ typ } not found!"
+
+  pname = "-><root>"
+  if prev
+    pname = "->#{ prev[1] }"
+  --"#{ typ }=#{ inspect args }"
+  ast_nodes[typ] args
+  --ast_nodes[typ] args
+
+
+--yue.p rec(example)
+print inspect rec(example), { newline: "\n", indent: " " }
+print "gbye"

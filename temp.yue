@@ -1,0 +1,1501 @@
+-- generated code; do not edit
+import "ast_impl" as ast
+import "inspect" as inspect
+_selector_t = ast._selector_t
+_selector_list_t = ast._selector_list_t
+_list_t = ast._list_t
+Node = ast.Node
+Leaf = ast.Leaf
+ast_nodes = {}
+ast_names = {}
+
+ast_names["Num"] = "num"
+ast_names["Name"] = "name"
+ast_names["Variable"] = "variable"
+ast_names["LabelName"] = "label_name"
+ast_names["LuaKeyword"] = "lua_keyword"
+ast_names["self"] = "self"
+ast_names["self_name"] = "self_name"
+ast_names["self_class"] = "self_name"
+ast_names["self_class_name"] = "self_class_name"
+ast_names["SelfName"] = "self_item"
+ast_names["KeyName"] = "key_name"
+ast_names["VarArg"] = "var_arg"
+ast_names["local_flag"] = "local_flag"
+ast_names["Seperator"] = "seperator"
+ast_names["NameList"] = "name_list"
+ast_names["local_values"] = "local_values"
+ast_names["Local"] = "local"
+ast_names["Attrib"] = "attrib"
+ast_names["LocalAttrib"] = "local_attrib"
+ast_names["colon_import_name"] = "colon_import_name"
+ast_names["import_literal_inner"] = "import_literal_inner"
+ast_names["ImportLiteral"] = "import_literal"
+ast_names["ImportFrom"] = "import_from"
+ast_names["macro_name_pair"] = "macro_name_pair"
+ast_names["import_all_macro"] = "import_all_macro"
+ast_names["ImportTabLit"] = "import_tab_lit"
+ast_names["ImportAs"] = "import_as"
+ast_names["Import"] = "import"
+ast_names["Label"] = "label"
+ast_names["Goto"] = "goto"
+ast_names["fn_arrow_back"] = "fn_arrow_back"
+ast_names["Backcall"] = "backcall"
+ast_names["ExpListLow"] = "exp_list_low"
+ast_names["ExpList"] = "exp_list"
+ast_names["Return"] = "return"
+ast_names["With"] = "with"
+ast_names["SwitchCase"] = "switch_case"
+ast_names["Switch"] = "switch"
+ast_names["assignment"] = "assignment"
+ast_names["IfCond"] = "if_cond"
+ast_names["IfType"] = "if_type"
+ast_names["If"] = "if"
+ast_names["WhileType"] = "while_type"
+ast_names["While"] = "while"
+ast_names["Repeat"] = "repeat"
+ast_names["for_step_value"] = "for_step_value"
+ast_names["For"] = "for"
+ast_names["ForEach"] = "for_each"
+ast_names["Do"] = "do"
+ast_names["catch_block"] = "catch_block"
+ast_names["Try"] = "try"
+ast_names["Comprehension"] = "comp"
+ast_names["comp_value"] = "comp_value"
+ast_names["TblComprehension"] = "tbl_comp"
+ast_names["star_exp"] = "star_exp"
+ast_names["CompForEach"] = "comp_for_each"
+ast_names["CompFor"] = "comp_for"
+ast_names["CompInner"] = "comp_inner"
+ast_names["Assign"] = "assign"
+ast_names["update_op"] = "update_op"
+ast_names["Update"] = "update"
+ast_names["BinaryOperator"] = "binary_op"
+ast_names["unary_operator"] = "unary_op"
+ast_names["Assignable"] = "assignable"
+ast_names["exp_op_value"] = "exp_op_value"
+ast_names["Exp"] = "exp"
+ast_names["Callable"] = "callable"
+ast_names["variable_pair"] = "variable_pair"
+ast_names["normal_pair"] = "normal_pair"
+ast_names["default_pair"] = "default_pair"
+ast_names["meta_variable_pair"] = "meta_variable_pair"
+ast_names["meta_normal_pair"] = "meta_normal_pair"
+ast_names["meta_default_pair"] = "meta_default_pair"
+ast_names["simple_table"] = "simple_table"
+ast_names["SimpleValue"] = "simple_value"
+ast_names["LuaStringOpen"] = "lua_string_open"
+ast_names["LuaStringContent"] = "lua_string_content"
+ast_names["LuaStringClose"] = "lua_string_close"
+ast_names["LuaString"] = "lua_string"
+ast_names["SingleString"] = "single_string"
+ast_names["double_string_inner"] = "double_string_inner"
+ast_names["double_string_content"] = "double_string_content"
+ast_names["DoubleString"] = "double_string"
+ast_names["String"] = "string"
+ast_names["Metatable"] = "metatable"
+ast_names["Metamethod"] = "metamethod"
+ast_names["DotChainItem"] = "dot_chain_item"
+ast_names["ColonChainItem"] = "colon_chain_item"
+ast_names["Slice"] = "slice"
+ast_names["Parens"] = "parens"
+ast_names["Invoke"] = "invoke"
+ast_names["existential_op"] = "existential_op"
+ast_names["table_appending_op"] = "table_appending_op"
+ast_names["ChainValue"] = "chain_value"
+ast_names["AssignableChain"] = "assignable_chain"
+ast_names["Value"] = "value"
+ast_names["default_value"] = "default_value"
+ast_names["SpreadExp"] = "spread_exp"
+ast_names["TableLit"] = "table_lit"
+ast_names["TableBlockIndent"] = "table_block_indent"
+ast_names["TableBlock"] = "table_block"
+ast_names["class_member_list"] = "class_member_list"
+ast_names["ClassBlock"] = "class_block"
+ast_names["ClassDecl"] = "class_decl"
+ast_names["global_values"] = "global_values"
+ast_names["global_op"] = "global_op"
+ast_names["Global"] = "global"
+ast_names["export_default"] = "export_default"
+ast_names["Export"] = "export"
+ast_names["FnArgDef"] = "fn_arg_def"
+ast_names["FnArgDefList"] = "fn_arg_def_list"
+ast_names["outer_var_shadow"] = "outer_var_shadow"
+ast_names["FnArgsDef"] = "fn_args_def"
+ast_names["fn_arrow"] = "fn_arrow"
+ast_names["FunLit"] = "fun_lit"
+ast_names["MacroName"] = "macro_name"
+ast_names["MacroLit"] = "macro_lit"
+ast_names["MacroInPlace"] = "macro_in_place"
+ast_names["Macro"] = "macro"
+ast_names["NameOrDestructure"] = "name_or_des"
+ast_names["AssignableNameList"] = "assignable_name_list"
+ast_names["InvokeArgs"] = "invoke_args"
+ast_names["const_value"] = "const_value"
+ast_names["unary_value"] = "unary_value"
+ast_names["unary_exp"] = "unary_exp"
+ast_names["ExpListAssign"] = "exp_list_assign"
+ast_names["if_line"] = "if_line"
+ast_names["BreakLoop"] = "break_loop"
+ast_names["PipeBody"] = "pipe_body"
+ast_names["statement_appendix"] = "statement_appendix"
+ast_names["statement_sep"] = "statement_sep"
+ast_names["Statement"] = "statement"
+ast_names["Body"] = "body"
+ast_names["Block"] = "block"
+ast_names["BlockEnd"] = "block_end"
+ast_names["File"] = "file"
+class Num extends Leaf
+    @type: "leaf"
+    @internal_name: "num"
+  
+    new: (v) => print "Num new: "
+ast_nodes.num = Num
+
+class Name extends Leaf
+    @type: "leaf"
+    @internal_name: "name"
+  
+    new: (v) => print "Name new: "
+ast_nodes.name = Name
+
+class Variable extends Node
+    @type: "node"
+    @internal_name: "variable"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.variable = Variable
+
+class LabelName extends Node
+    @type: "node"
+    @internal_name: "label_name"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.label_name = LabelName
+
+class LuaKeyword extends Node
+    @type: "node"
+    @internal_name: "lua_keyword"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.lua_keyword = LuaKeyword
+
+class self extends Leaf
+    @type: "leaf"
+    @internal_name: "self"
+  
+    new: (v) => print "self new: "
+ast_nodes.self = self
+
+class self_name extends Node
+    @type: "node"
+    @internal_name: "self_name"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.self_name = self_name
+
+class self_class extends Leaf
+    @type: "leaf"
+    @internal_name: "self_name"
+  
+    new: (v) => print "self_class new: "
+ast_nodes.self_name = self_class
+
+class self_class_name extends Node
+    @type: "node"
+    @internal_name: "self_class_name"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.self_class_name = self_class_name
+
+class SelfName extends Node
+    @type: "node"
+    @internal_name: "self_item"
+  
+    -- @name: sel<self_class_name,self_class,self_name,self>
+    new: (name) =>
+      @name = name
+ast_nodes.self_item = SelfName
+
+class KeyName extends Node
+    @type: "node"
+    @internal_name: "key_name"
+  
+    -- @name: sel<SelfName,Name>
+    new: (name) =>
+      @name = name
+ast_nodes.key_name = KeyName
+
+class VarArg extends Leaf
+    @type: "leaf"
+    @internal_name: "var_arg"
+  
+    new: (v) => print "VarArg new: "
+ast_nodes.var_arg = VarArg
+
+class local_flag extends Leaf
+    @type: "leaf"
+    @internal_name: "local_flag"
+  
+    new: (v) => print "local_flag new: "
+ast_nodes.local_flag = local_flag
+
+class Seperator extends Leaf
+    @type: "leaf"
+    @internal_name: "seperator"
+  
+    new: (v) => print "Seperator new: "
+ast_nodes.seperator = Seperator
+
+class NameList extends Node
+    @type: "node"
+    @internal_name: "name_list"
+  
+    --@sep: Seperator
+    -- @names: list<Variable>
+    new: (sep, names) =>
+      @sep = sep
+      @names = names
+ast_nodes.name_list = NameList
+
+class local_values extends Node
+    @type: "node"
+    @internal_name: "local_values"
+  
+    --@nameList: NameList
+    -- @valueList: sel<TableBlock,ExpListLow>
+    new: (nameList, valueList) =>
+      @nameList = nameList
+      @valueList = valueList
+ast_nodes.local_values = local_values
+
+class Local extends Node
+    @type: "node"
+    @internal_name: "local"
+  
+    -- @item: sel<local_flag,local_values>
+    new: (item) =>
+      @item = item
+ast_nodes.local = Local
+
+class Attrib extends Leaf
+    @type: "leaf"
+    @internal_name: "attrib"
+  
+    new: (v) => print "Attrib new: "
+ast_nodes.attrib = Attrib
+
+class LocalAttrib extends Node
+    @type: "node"
+    @internal_name: "local_attrib"
+  
+    --@attrib: Attrib
+    --@nameList: NameList
+    --@assign: Assign
+    new: (attrib, nameList, assign) =>
+      @attrib = attrib
+      @nameList = nameList
+      @assign = assign
+ast_nodes.local_attrib = LocalAttrib
+
+class colon_import_name extends Node
+    @type: "node"
+    @internal_name: "colon_import_name"
+  
+    --@name: Variable
+    new: (name) =>
+      @name = name
+ast_nodes.colon_import_name = colon_import_name
+
+class import_literal_inner extends Leaf
+    @type: "leaf"
+    @internal_name: "import_literal_inner"
+  
+    new: (v) => print "import_literal_inner new: "
+ast_nodes.import_literal_inner = import_literal_inner
+
+class ImportLiteral extends Node
+    @type: "node"
+    @internal_name: "import_literal"
+  
+    --@sep: Seperator
+    -- @inners: sel_list<import_literal_inner>
+    new: (sep, inners) =>
+      @sep = sep
+      @inners = inners
+ast_nodes.import_literal = ImportLiteral
+
+class ImportFrom extends Node
+    @type: "node"
+    @internal_name: "import_from"
+  
+    --@sep: Seperator
+    -- @names: sel_list<colon_import_name,Variable>
+    --@exp: Exp
+    new: (sep, names, exp) =>
+      @sep = sep
+      @names = names
+      @exp = exp
+ast_nodes.import_from = ImportFrom
+
+class macro_name_pair extends Node
+    @type: "node"
+    @internal_name: "macro_name_pair"
+  
+    --@key: MacroName
+    --@value: MacroName
+    new: (key, value) =>
+      @key = key
+      @value = value
+ast_nodes.macro_name_pair = macro_name_pair
+
+class import_all_macro extends Leaf
+    @type: "leaf"
+    @internal_name: "import_all_macro"
+  
+    new: (v) => print "import_all_macro new: "
+ast_nodes.import_all_macro = import_all_macro
+
+class ImportTabLit extends Node
+    @type: "node"
+    @internal_name: "import_tab_lit"
+  
+    --@sep: Seperator
+    -- @items: sel_list<variable_pair,normal_pair,MacroName,macro_name_pair,import_all_macro,Exp,meta_variable_pair,meta_normal_pair>
+    new: (sep, items) =>
+      @sep = sep
+      @items = items
+ast_nodes.import_tab_lit = ImportTabLit
+
+class ImportAs extends Node
+    @type: "node"
+    @internal_name: "import_as"
+  
+    --@literal: ImportLiteral
+    -- @target: sel<Variable,ImportTabLit,import_all_macro>
+    new: (literal, target) =>
+      @literal = literal
+      @target = target
+ast_nodes.import_as = ImportAs
+
+class Import extends Node
+    @type: "node"
+    @internal_name: "import"
+  
+    -- @content: sel<ImportAs,ImportFrom>
+    new: (content) =>
+      @content = content
+ast_nodes.import = Import
+
+class Label extends Node
+    @type: "node"
+    @internal_name: "label"
+  
+    --@label: LabelName
+    new: (label) =>
+      @label = label
+ast_nodes.label = Label
+
+class Goto extends Node
+    @type: "node"
+    @internal_name: "goto"
+  
+    --@label: LabelName
+    new: (label) =>
+      @label = label
+ast_nodes.goto = Goto
+
+class fn_arrow_back extends Leaf
+    @type: "leaf"
+    @internal_name: "fn_arrow_back"
+  
+    new: (v) => print "fn_arrow_back new: "
+ast_nodes.fn_arrow_back = fn_arrow_back
+
+class Backcall extends Node
+    @type: "node"
+    @internal_name: "backcall"
+  
+    --@argsDef: FnArgsDef
+    --@arrow: fn_arrow_back
+    --@value: ChainValue
+    new: (argsDef, arrow, value) =>
+      @argsDef = argsDef
+      @arrow = arrow
+      @value = value
+ast_nodes.backcall = Backcall
+
+class ExpListLow extends Node
+    @type: "node"
+    @internal_name: "exp_list_low"
+  
+    --@sep: Seperator
+    -- @exprs: list<Exp>
+    new: (sep, exprs) =>
+      @sep = sep
+      @exprs = exprs
+ast_nodes.exp_list_low = ExpListLow
+
+class ExpList extends Node
+    @type: "node"
+    @internal_name: "exp_list"
+  
+    --@sep: Seperator
+    -- @exprs: list<Exp>
+    new: (sep, exprs) =>
+      @sep = sep
+      @exprs = exprs
+ast_nodes.exp_list = ExpList
+
+class Return extends Node
+    @type: "node"
+    @internal_name: "return"
+  
+    -- @valueList: sel<TableBlock,ExpListLow>
+    new: (valueList) =>
+      @valueList = valueList
+ast_nodes.return = Return
+
+class With extends Node
+    @type: "node"
+    @internal_name: "with"
+  
+    --@eop: existential_op
+    --@valueList: ExpList
+    --@assigns: Assign
+    -- @body: sel<Block,Statement>
+    new: (eop, valueList, assigns, body) =>
+      @eop = eop
+      @valueList = valueList
+      @assigns = assigns
+      @body = body
+ast_nodes.with = With
+
+class SwitchCase extends Node
+    @type: "node"
+    @internal_name: "switch_case"
+  
+    --@valueList: ExpList
+    -- @body: sel<Block,Statement>
+    new: (valueList, body) =>
+      @valueList = valueList
+      @body = body
+ast_nodes.switch_case = SwitchCase
+
+class Switch extends Node
+    @type: "node"
+    @internal_name: "switch"
+  
+    --@target: Exp
+    --@sep: Seperator
+    -- @branches: list<SwitchCase>
+    -- @lastBranch: sel<Block,Statement>
+    new: (target, sep, branches, lastBranch) =>
+      @target = target
+      @sep = sep
+      @branches = branches
+      @lastBranch = lastBranch
+ast_nodes.switch = Switch
+
+class assignment extends Node
+    @type: "node"
+    @internal_name: "assignment"
+  
+    --@expList: ExpList
+    --@assign: Assign
+    new: (expList, assign) =>
+      @expList = expList
+      @assign = assign
+ast_nodes.assignment = assignment
+
+class IfCond extends Node
+    @type: "node"
+    @internal_name: "if_cond"
+  
+    -- @condition: sel<Exp,assignment>
+    new: (condition) =>
+      @condition = condition
+ast_nodes.if_cond = IfCond
+
+class IfType extends Leaf
+    @type: "leaf"
+    @internal_name: "if_type"
+  
+    new: (v) => print "IfType new: "
+ast_nodes.if_type = IfType
+
+class If extends Node
+    @type: "node"
+    @internal_name: "if"
+  
+    --@type: IfType
+    -- @nodes: sel_list<IfCond,Block,Statement>
+    new: (type, nodes) =>
+      @type = type
+      @nodes = nodes
+ast_nodes.if = If
+
+class WhileType extends Leaf
+    @type: "leaf"
+    @internal_name: "while_type"
+  
+    new: (v) => print "WhileType new: "
+ast_nodes.while_type = WhileType
+
+class While extends Node
+    @type: "node"
+    @internal_name: "while"
+  
+    --@type: WhileType
+    --@condition: Exp
+    -- @body: sel<Block,Statement>
+    new: (type, condition, body) =>
+      @type = type
+      @condition = condition
+      @body = body
+ast_nodes.while = While
+
+class Repeat extends Node
+    @type: "node"
+    @internal_name: "repeat"
+  
+    --@body: Body
+    --@condition: Exp
+    new: (body, condition) =>
+      @body = body
+      @condition = condition
+ast_nodes.repeat = Repeat
+
+class for_step_value extends Node
+    @type: "node"
+    @internal_name: "for_step_value"
+  
+    --@value: Exp
+    new: (value) =>
+      @value = value
+ast_nodes.for_step_value = for_step_value
+
+class For extends Node
+    @type: "node"
+    @internal_name: "for"
+  
+    --@varName: Variable
+    --@startValue: Exp
+    --@stopValue: Exp
+    --@stepValue: for_step_value
+    -- @body: sel<Block,Statement>
+    new: (varName, startValue, stopValue, stepValue, body) =>
+      @varName = varName
+      @startValue = startValue
+      @stopValue = stopValue
+      @stepValue = stepValue
+      @body = body
+ast_nodes.for = For
+
+class ForEach extends Node
+    @type: "node"
+    @internal_name: "for_each"
+  
+    --@nameList: AssignableNameList
+    -- @loopValue: sel<star_exp,ExpList>
+    -- @body: sel<Block,Statement>
+    new: (nameList, loopValue, body) =>
+      @nameList = nameList
+      @loopValue = loopValue
+      @body = body
+ast_nodes.for_each = ForEach
+
+class Do extends Node
+    @type: "node"
+    @internal_name: "do"
+  
+    --@body: Body
+    new: (body) =>
+      @body = body
+ast_nodes.do = Do
+
+class catch_block extends Node
+    @type: "node"
+    @internal_name: "catch_block"
+  
+    --@err: Variable
+    --@body: Block
+    new: (err, body) =>
+      @err = err
+      @body = body
+ast_nodes.catch_block = catch_block
+
+class Try extends Node
+    @type: "node"
+    @internal_name: "try"
+  
+    -- @func: sel<Block,Exp>
+    --@catchBlock: catch_block
+    new: (func, catchBlock) =>
+      @func = func
+      @catchBlock = catchBlock
+ast_nodes.try = Try
+
+class Comprehension extends Node
+    @type: "node"
+    @internal_name: "comp"
+  
+    -- @value: sel<Exp,Statement>
+    --@forLoop: CompInner
+    new: (value, forLoop) =>
+      @value = value
+      @forLoop = forLoop
+ast_nodes.comp = Comprehension
+
+class comp_value extends Node
+    @type: "node"
+    @internal_name: "comp_value"
+  
+    --@value: Exp
+    new: (value) =>
+      @value = value
+ast_nodes.comp_value = comp_value
+
+class TblComprehension extends Node
+    @type: "node"
+    @internal_name: "tbl_comp"
+  
+    --@key: Exp
+    --@value: comp_value
+    --@forLoop: CompInner
+    new: (key, value, forLoop) =>
+      @key = key
+      @value = value
+      @forLoop = forLoop
+ast_nodes.tbl_comp = TblComprehension
+
+class star_exp extends Node
+    @type: "node"
+    @internal_name: "star_exp"
+  
+    --@value: Exp
+    new: (value) =>
+      @value = value
+ast_nodes.star_exp = star_exp
+
+class CompForEach extends Node
+    @type: "node"
+    @internal_name: "comp_for_each"
+  
+    --@nameList: AssignableNameList
+    -- @loopValue: sel<star_exp,Exp>
+    new: (nameList, loopValue) =>
+      @nameList = nameList
+      @loopValue = loopValue
+ast_nodes.comp_for_each = CompForEach
+
+class CompFor extends Node
+    @type: "node"
+    @internal_name: "comp_for"
+  
+    --@varName: Variable
+    --@startValue: Exp
+    --@stopValue: Exp
+    --@stepValue: for_step_value
+    new: (varName, startValue, stopValue, stepValue) =>
+      @varName = varName
+      @startValue = startValue
+      @stopValue = stopValue
+      @stepValue = stepValue
+ast_nodes.comp_for = CompFor
+
+class CompInner extends Node
+    @type: "node"
+    @internal_name: "comp_inner"
+  
+    --@sep: Seperator
+    -- @items: sel_list<CompFor,CompForEach,Exp>
+    new: (sep, items) =>
+      @sep = sep
+      @items = items
+ast_nodes.comp_inner = CompInner
+
+class Assign extends Node
+    @type: "node"
+    @internal_name: "assign"
+  
+    --@sep: Seperator
+    -- @values: sel_list<With,If,Switch,TableBlock,Exp>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.assign = Assign
+
+class update_op extends Leaf
+    @type: "leaf"
+    @internal_name: "update_op"
+  
+    new: (v) => print "update_op new: "
+ast_nodes.update_op = update_op
+
+class Update extends Node
+    @type: "node"
+    @internal_name: "update"
+  
+    --@op: update_op
+    --@value: Exp
+    new: (op, value) =>
+      @op = op
+      @value = value
+ast_nodes.update = Update
+
+class BinaryOperator extends Leaf
+    @type: "leaf"
+    @internal_name: "binary_op"
+  
+    new: (v) => print "BinaryOperator new: "
+ast_nodes.binary_op = BinaryOperator
+
+class unary_operator extends Leaf
+    @type: "leaf"
+    @internal_name: "unary_op"
+  
+    new: (v) => print "unary_operator new: "
+ast_nodes.unary_op = unary_operator
+
+class Assignable extends Node
+    @type: "node"
+    @internal_name: "assignable"
+  
+    -- @item: sel<AssignableChain,Variable,SelfName>
+    new: (item) =>
+      @item = item
+ast_nodes.assignable = Assignable
+
+class exp_op_value extends Node
+    @type: "node"
+    @internal_name: "exp_op_value"
+  
+    --@op: BinaryOperator
+    -- @pipeExprs: list<unary_exp>
+    new: (op, pipeExprs) =>
+      @op = op
+      @pipeExprs = pipeExprs
+ast_nodes.exp_op_value = exp_op_value
+
+class Exp extends Node
+    @type: "node"
+    @internal_name: "exp"
+  
+    --@sep: Seperator
+    -- @pipeExprs: list<unary_exp>
+    -- @opValues: list<exp_op_value>
+    --@nilCoalesed: Exp
+    new: (sep, pipeExprs, opValues, nilCoalesed) =>
+      @sep = sep
+      @pipeExprs = pipeExprs
+      @opValues = opValues
+      @nilCoalesed = nilCoalesed
+ast_nodes.exp = Exp
+
+class Callable extends Node
+    @type: "node"
+    @internal_name: "callable"
+  
+    -- @item: sel<Variable,SelfName,VarArg,Parens,MacroName>
+    new: (item) =>
+      @item = item
+ast_nodes.callable = Callable
+
+class variable_pair extends Node
+    @type: "node"
+    @internal_name: "variable_pair"
+  
+    --@name: Variable
+    new: (name) =>
+      @name = name
+ast_nodes.variable_pair = variable_pair
+
+class normal_pair extends Node
+    @type: "node"
+    @internal_name: "normal_pair"
+  
+    -- @key: sel<KeyName,Exp,DoubleString,SingleString,LuaString>
+    -- @value: sel<Exp,TableBlock>
+    new: (key, value) =>
+      @key = key
+      @value = value
+ast_nodes.normal_pair = normal_pair
+
+class default_pair extends Node
+    @type: "node"
+    @internal_name: "default_pair"
+  
+    -- @key: sel<Variable,KeyName,Exp>
+    --@sep: Seperator
+    --@value: Exp
+    --@defVal: Exp
+    new: (key, sep, value, defVal) =>
+      @key = key
+      @sep = sep
+      @value = value
+      @defVal = defVal
+ast_nodes.default_pair = default_pair
+
+class meta_variable_pair extends Node
+    @type: "node"
+    @internal_name: "meta_variable_pair"
+  
+    --@name: Variable
+    new: (name) =>
+      @name = name
+ast_nodes.meta_variable_pair = meta_variable_pair
+
+class meta_normal_pair extends Node
+    @type: "node"
+    @internal_name: "meta_normal_pair"
+  
+    -- @key: sel<Name,Exp>
+    -- @value: sel<Exp,TableBlock>
+    new: (key, value) =>
+      @key = key
+      @value = value
+ast_nodes.meta_normal_pair = meta_normal_pair
+
+class meta_default_pair extends Node
+    @type: "node"
+    @internal_name: "meta_default_pair"
+  
+    -- @key: sel<Variable,Name>
+    --@sep: Seperator
+    --@value: Exp
+    --@defVal: Exp
+    new: (key, sep, value, defVal) =>
+      @key = key
+      @sep = sep
+      @value = value
+      @defVal = defVal
+ast_nodes.meta_default_pair = meta_default_pair
+
+class simple_table extends Node
+    @type: "node"
+    @internal_name: "simple_table"
+  
+    --@sep: Seperator
+    -- @pairs: sel_list<variable_pair,normal_pair,meta_variable_pair,meta_normal_pair>
+    new: (sep, pairs) =>
+      @sep = sep
+      @pairs = pairs
+ast_nodes.simple_table = simple_table
+
+class SimpleValue extends Node
+    @type: "node"
+    @internal_name: "simple_value"
+  
+    -- @value: sel<If,Switch,With,ClassDecl,ForEach,For,While,Do,Try,unary_value,TblComprehension,TableLit,Comprehension,FunLit,Num>
+    new: (value) =>
+      @value = value
+ast_nodes.simple_value = SimpleValue
+
+class LuaStringOpen extends Leaf
+    @type: "leaf"
+    @internal_name: "lua_string_open"
+  
+    new: (v) => print "LuaStringOpen new: "
+ast_nodes.lua_string_open = LuaStringOpen
+
+class LuaStringContent extends Leaf
+    @type: "leaf"
+    @internal_name: "lua_string_content"
+  
+    new: (v) => print "LuaStringContent new: "
+ast_nodes.lua_string_content = LuaStringContent
+
+class LuaStringClose extends Leaf
+    @type: "leaf"
+    @internal_name: "lua_string_close"
+  
+    new: (v) => print "LuaStringClose new: "
+ast_nodes.lua_string_close = LuaStringClose
+
+class LuaString extends Node
+    @type: "node"
+    @internal_name: "lua_string"
+  
+    --@open: LuaStringOpen
+    --@content: LuaStringContent
+    --@close: LuaStringClose
+    new: (open, content, close) =>
+      @open = open
+      @content = content
+      @close = close
+ast_nodes.lua_string = LuaString
+
+class SingleString extends Leaf
+    @type: "leaf"
+    @internal_name: "single_string"
+  
+    new: (v) => print "SingleString new: "
+ast_nodes.single_string = SingleString
+
+class double_string_inner extends Leaf
+    @type: "leaf"
+    @internal_name: "double_string_inner"
+  
+    new: (v) => print "double_string_inner new: "
+ast_nodes.double_string_inner = double_string_inner
+
+class double_string_content extends Node
+    @type: "node"
+    @internal_name: "double_string_content"
+  
+    -- @content: sel<double_string_inner,Exp>
+    new: (content) =>
+      @content = content
+ast_nodes.double_string_content = double_string_content
+
+class DoubleString extends Node
+    @type: "node"
+    @internal_name: "double_string"
+  
+    --@sep: Seperator
+    -- @segments: list<double_string_content>
+    new: (sep, segments) =>
+      @sep = sep
+      @segments = segments
+ast_nodes.double_string = DoubleString
+
+class String extends Node
+    @type: "node"
+    @internal_name: "string"
+  
+    -- @str: sel<DoubleString,SingleString,LuaString>
+    new: (str) =>
+      @str = str
+ast_nodes.string = String
+
+class Metatable extends Leaf
+    @type: "leaf"
+    @internal_name: "metatable"
+  
+    new: (v) => print "Metatable new: "
+ast_nodes.metatable = Metatable
+
+class Metamethod extends Node
+    @type: "node"
+    @internal_name: "metamethod"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.metamethod = Metamethod
+
+class DotChainItem extends Node
+    @type: "node"
+    @internal_name: "dot_chain_item"
+  
+    -- @name: sel<Name,Metatable,Metamethod>
+    new: (name) =>
+      @name = name
+ast_nodes.dot_chain_item = DotChainItem
+
+class ColonChainItem extends Node
+    @type: "node"
+    @internal_name: "colon_chain_item"
+  
+    -- @name: sel<LuaKeyword,Name,Metamethod>
+    new: (name) =>
+      @name = name
+ast_nodes.colon_chain_item = ColonChainItem
+
+class Slice extends Node
+    @type: "node"
+    @internal_name: "slice"
+  
+    -- @startValue: sel<Exp,default_value>
+    -- @stopValue: sel<Exp,default_value>
+    -- @stepValue: sel<Exp,default_value>
+    new: (startValue, stopValue, stepValue) =>
+      @startValue = startValue
+      @stopValue = stopValue
+      @stepValue = stepValue
+ast_nodes.slice = Slice
+
+class Parens extends Node
+    @type: "node"
+    @internal_name: "parens"
+  
+    --@expr: Exp
+    new: (expr) =>
+      @expr = expr
+ast_nodes.parens = Parens
+
+class Invoke extends Node
+    @type: "node"
+    @internal_name: "invoke"
+  
+    --@sep: Seperator
+    -- @args: sel_list<Exp,SingleString,DoubleString,LuaString,TableLit>
+    new: (sep, args) =>
+      @sep = sep
+      @args = args
+ast_nodes.invoke = Invoke
+
+class existential_op extends Leaf
+    @type: "leaf"
+    @internal_name: "existential_op"
+  
+    new: (v) => print "existential_op new: "
+ast_nodes.existential_op = existential_op
+
+class table_appending_op extends Leaf
+    @type: "leaf"
+    @internal_name: "table_appending_op"
+  
+    new: (v) => print "table_appending_op new: "
+ast_nodes.table_appending_op = table_appending_op
+
+class ChainValue extends Node
+    @type: "node"
+    @internal_name: "chain_value"
+  
+    --@sep: Seperator
+    -- @items: sel_list<Callable,Invoke,DotChainItem,ColonChainItem,Slice,Exp,String,InvokeArgs,existential_op,table_appending_op>
+    new: (sep, items) =>
+      @sep = sep
+      @items = items
+ast_nodes.chain_value = ChainValue
+
+class AssignableChain extends Node
+    @type: "node"
+    @internal_name: "assignable_chain"
+  
+    --@sep: Seperator
+    -- @items: sel_list<Callable,Invoke,DotChainItem,ColonChainItem,Exp,String>
+    new: (sep, items) =>
+      @sep = sep
+      @items = items
+ast_nodes.assignable_chain = AssignableChain
+
+class Value extends Node
+    @type: "node"
+    @internal_name: "value"
+  
+    -- @item: sel<SimpleValue,simple_table,ChainValue,String>
+    new: (item) =>
+      @item = item
+ast_nodes.value = Value
+
+class default_value extends Leaf
+    @type: "leaf"
+    @internal_name: "default_value"
+  
+    new: (v) => print "default_value new: "
+ast_nodes.default_value = default_value
+
+class SpreadExp extends Node
+    @type: "node"
+    @internal_name: "spread_exp"
+  
+    --@exp: Exp
+    new: (exp) =>
+      @exp = exp
+ast_nodes.spread_exp = SpreadExp
+
+class TableLit extends Node
+    @type: "node"
+    @internal_name: "table_lit"
+  
+    --@sep: Seperator
+    -- @values: sel_list<variable_pair,normal_pair,SpreadExp,Exp,default_pair,meta_variable_pair,meta_normal_pair,meta_default_pair>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.table_lit = TableLit
+
+class TableBlockIndent extends Node
+    @type: "node"
+    @internal_name: "table_block_indent"
+  
+    --@sep: Seperator
+    -- @values: sel_list<variable_pair,normal_pair,TableBlockIndent,default_pair,meta_variable_pair,meta_normal_pair,meta_default_pair>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.table_block_indent = TableBlockIndent
+
+class TableBlock extends Node
+    @type: "node"
+    @internal_name: "table_block"
+  
+    --@sep: Seperator
+    -- @values: sel_list<variable_pair,normal_pair,TableBlockIndent,Exp,TableBlock,SpreadExp,default_pair>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.table_block = TableBlock
+
+class class_member_list extends Node
+    @type: "node"
+    @internal_name: "class_member_list"
+  
+    --@sep: Seperator
+    -- @values: sel_list<variable_pair,normal_pair>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.class_member_list = class_member_list
+
+class ClassBlock extends Node
+    @type: "node"
+    @internal_name: "class_block"
+  
+    --@sep: Seperator
+    -- @contents: sel_list<class_member_list,Statement>
+    new: (sep, contents) =>
+      @sep = sep
+      @contents = contents
+ast_nodes.class_block = ClassBlock
+
+class ClassDecl extends Node
+    @type: "node"
+    @internal_name: "class_decl"
+  
+    --@name: Assignable
+    --@extend: Exp
+    --@mixes: ExpList
+    --@body: ClassBlock
+    new: (name, extend, mixes, body) =>
+      @name = name
+      @extend = extend
+      @mixes = mixes
+      @body = body
+ast_nodes.class_decl = ClassDecl
+
+class global_values extends Node
+    @type: "node"
+    @internal_name: "global_values"
+  
+    --@nameList: NameList
+    -- @valueList: sel<TableBlock,ExpListLow>
+    new: (nameList, valueList) =>
+      @nameList = nameList
+      @valueList = valueList
+ast_nodes.global_values = global_values
+
+class global_op extends Leaf
+    @type: "leaf"
+    @internal_name: "global_op"
+  
+    new: (v) => print "global_op new: "
+ast_nodes.global_op = global_op
+
+class Global extends Node
+    @type: "node"
+    @internal_name: "global"
+  
+    -- @item: sel<ClassDecl,global_op,global_values>
+    new: (item) =>
+      @item = item
+ast_nodes.global = Global
+
+class export_default extends Leaf
+    @type: "leaf"
+    @internal_name: "export_default"
+  
+    new: (v) => print "export_default new: "
+ast_nodes.export_default = export_default
+
+class Export extends Node
+    @type: "node"
+    @internal_name: "export"
+  
+    --@def: export_default
+    -- @target: sel<ExpList,Exp,Macro>
+    --@assign: Assign
+    new: (def, target, assign) =>
+      @def = def
+      @target = target
+      @assign = assign
+ast_nodes.export = Export
+
+class FnArgDef extends Node
+    @type: "node"
+    @internal_name: "fn_arg_def"
+  
+    -- @name: sel<Variable,SelfName>
+    --@op: existential_op
+    --@defaultValue: Exp
+    new: (name, op, defaultValue) =>
+      @name = name
+      @op = op
+      @defaultValue = defaultValue
+ast_nodes.fn_arg_def = FnArgDef
+
+class FnArgDefList extends Node
+    @type: "node"
+    @internal_name: "fn_arg_def_list"
+  
+    --@sep: Seperator
+    -- @definitions: list<FnArgDef>
+    --@varArg: VarArg
+    new: (sep, definitions, varArg) =>
+      @sep = sep
+      @definitions = definitions
+      @varArg = varArg
+ast_nodes.fn_arg_def_list = FnArgDefList
+
+class outer_var_shadow extends Node
+    @type: "node"
+    @internal_name: "outer_var_shadow"
+  
+    --@varList: NameList
+    new: (varList) =>
+      @varList = varList
+ast_nodes.outer_var_shadow = outer_var_shadow
+
+class FnArgsDef extends Node
+    @type: "node"
+    @internal_name: "fn_args_def"
+  
+    --@defList: FnArgDefList
+    --@shadowOption: outer_var_shadow
+    new: (defList, shadowOption) =>
+      @defList = defList
+      @shadowOption = shadowOption
+ast_nodes.fn_args_def = FnArgsDef
+
+class fn_arrow extends Leaf
+    @type: "leaf"
+    @internal_name: "fn_arrow"
+  
+    new: (v) => print "fn_arrow new: "
+ast_nodes.fn_arrow = fn_arrow
+
+class FunLit extends Node
+    @type: "node"
+    @internal_name: "fun_lit"
+  
+    --@argsDef: FnArgsDef
+    --@arrow: fn_arrow
+    --@body: Body
+    new: (argsDef, arrow, body) =>
+      @argsDef = argsDef
+      @arrow = arrow
+      @body = body
+ast_nodes.fun_lit = FunLit
+
+class MacroName extends Node
+    @type: "node"
+    @internal_name: "macro_name"
+  
+    --@name: Name
+    new: (name) =>
+      @name = name
+ast_nodes.macro_name = MacroName
+
+class MacroLit extends Node
+    @type: "node"
+    @internal_name: "macro_lit"
+  
+    --@argsDef: FnArgDefList
+    --@body: Body
+    new: (argsDef, body) =>
+      @argsDef = argsDef
+      @body = body
+ast_nodes.macro_lit = MacroLit
+
+class MacroInPlace extends Node
+    @type: "node"
+    @internal_name: "macro_in_place"
+  
+    --@body: Body
+    new: (body) =>
+      @body = body
+ast_nodes.macro_in_place = MacroInPlace
+
+class Macro extends Node
+    @type: "node"
+    @internal_name: "macro"
+  
+    --@name: Name
+    --@macroLit: MacroLit
+    new: (name, macroLit) =>
+      @name = name
+      @macroLit = macroLit
+ast_nodes.macro = Macro
+
+class NameOrDestructure extends Node
+    @type: "node"
+    @internal_name: "name_or_des"
+  
+    -- @item: sel<Variable,TableLit>
+    new: (item) =>
+      @item = item
+ast_nodes.name_or_des = NameOrDestructure
+
+class AssignableNameList extends Node
+    @type: "node"
+    @internal_name: "assignable_name_list"
+  
+    --@sep: Seperator
+    -- @items: list<NameOrDestructure>
+    new: (sep, items) =>
+      @sep = sep
+      @items = items
+ast_nodes.assignable_name_list = AssignableNameList
+
+class InvokeArgs extends Node
+    @type: "node"
+    @internal_name: "invoke_args"
+  
+    --@sep: Seperator
+    -- @args: sel_list<Exp,TableBlock>
+    new: (sep, args) =>
+      @sep = sep
+      @args = args
+ast_nodes.invoke_args = InvokeArgs
+
+class const_value extends Leaf
+    @type: "leaf"
+    @internal_name: "const_value"
+  
+    new: (v) => print "const_value new: "
+ast_nodes.const_value = const_value
+
+class unary_value extends Node
+    @type: "node"
+    @internal_name: "unary_value"
+  
+    -- @ops: list<unary_operator>
+    --@value: Value
+    new: (ops, value) =>
+      @ops = ops
+      @value = value
+ast_nodes.unary_value = unary_value
+
+class unary_exp extends Node
+    @type: "node"
+    @internal_name: "unary_exp"
+  
+    -- @ops: list<unary_operator>
+    -- @expos: list<Value>
+    new: (ops, expos) =>
+      @ops = ops
+      @expos = expos
+ast_nodes.unary_exp = unary_exp
+
+class ExpListAssign extends Node
+    @type: "node"
+    @internal_name: "exp_list_assign"
+  
+    --@expList: ExpList
+    -- @action: sel<Update,Assign>
+    new: (expList, action) =>
+      @expList = expList
+      @action = action
+ast_nodes.exp_list_assign = ExpListAssign
+
+class if_line extends Node
+    @type: "node"
+    @internal_name: "if_line"
+  
+    --@type: IfType
+    --@condition: IfCond
+    new: (type, condition) =>
+      @type = type
+      @condition = condition
+ast_nodes.if_line = if_line
+
+class BreakLoop extends Leaf
+    @type: "leaf"
+    @internal_name: "break_loop"
+  
+    new: (v) => print "BreakLoop new: "
+ast_nodes.break_loop = BreakLoop
+
+class PipeBody extends Node
+    @type: "node"
+    @internal_name: "pipe_body"
+  
+    --@sep: Seperator
+    -- @values: list<unary_exp>
+    new: (sep, values) =>
+      @sep = sep
+      @values = values
+ast_nodes.pipe_body = PipeBody
+
+class statement_appendix extends Node
+    @type: "node"
+    @internal_name: "statement_appendix"
+  
+    -- @item: sel<if_line,CompInner>
+    new: (item) =>
+      @item = item
+ast_nodes.statement_appendix = statement_appendix
+
+class statement_sep extends Leaf
+    @type: "leaf"
+    @internal_name: "statement_sep"
+  
+    new: (v) => print "statement_sep new: "
+ast_nodes.statement_sep = statement_sep
+
+class Statement extends Node
+    @type: "node"
+    @internal_name: "statement"
+  
+    -- @content: sel<Import,While,Repeat,For,ForEach,Return,Local,Global,Export,Macro,MacroInPlace,BreakLoop,Label,Goto,Backcall,LocalAttrib,PipeBody,ExpListAssign>
+    --@appendix: statement_appendix
+    --@needSep: statement_sep
+    new: (content, appendix, needSep) =>
+      @content = content
+      @appendix = appendix
+      @needSep = needSep
+ast_nodes.statement = Statement
+
+class Body extends Node
+    @type: "node"
+    @internal_name: "body"
+  
+    -- @content: sel<Block,Statement>
+    new: (content) =>
+      @content = content
+ast_nodes.body = Body
+
+class Block extends Node
+    @type: "node"
+    @internal_name: "block"
+  
+    --@sep: Seperator
+    -- @statements: list<Statement>
+    new: (sep, statements) =>
+      @sep = sep
+      @statements = statements
+ast_nodes.block = Block
+
+class BlockEnd extends Node
+    @type: "node"
+    @internal_name: "block_end"
+  
+    --@block: Block
+    new: (block) =>
+      @block = block
+ast_nodes.block_end = BlockEnd
+
+class File extends Node
+    @type: "node"
+    @internal_name: "file"
+  
+    --@block: Block
+    new: (block) =>
+      @block = block
+ast_nodes.file = File
+
+
+export default ast_nodes

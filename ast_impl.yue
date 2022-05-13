@@ -1,0 +1,76 @@
+--[[ special types ]]
+class _selector_t
+  new: (types = {}) =>
+    @allowed = types
+    @value = nil
+
+  get: =>
+    @value
+
+  set: (v) =>
+    ok = false
+    for i, ac in ipairs @allowed
+      if ac.__name == v.__name
+        ok = true
+        break
+
+    unless ok
+      error "#{ v.__name } not allowed"
+
+    @value = v
+
+class _selector_list_t
+  new: (types = {}) =>
+    @allowed = types
+    @value = nil
+
+  get: =>
+    @value
+
+  set: (v) =>
+    ok = false
+    for i, ac in ipairs @allowed
+      if ac.__name == v.__name
+        ok = true
+        break
+
+    unless ok
+      error "#{ v.__name } not allowed"
+
+    @value = v
+
+class _list_t
+  new: (types = {}) =>
+    @allowed = types
+    @value = nil
+
+  get: =>
+    @value
+
+  set: (v) =>
+    ok = false
+    for i, ac in ipairs @allowed
+      if ac.__name == v.__name
+        ok = true
+        break
+
+    unless ok
+      error "#{ v.__name } not allowed"
+
+    @value = v
+
+
+--[[ end special types ]]
+
+class Leaf
+  -- no props
+
+class Node
+
+export default {
+  :_selector_t
+  :_selector_list_t
+  :_list_t
+  :Leaf
+  :Node
+}
